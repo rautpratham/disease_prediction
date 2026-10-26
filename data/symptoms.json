@@ -1,0 +1,637 @@
+{
+  "runny_nose": {
+    "name": "Runny Nose (Rhinorrhea)",
+    "category": "Respiratory",
+    "description": "Excess drainage produced by nasal tissues ranging from clear fluid to thick mucus."
+  },
+  "sneezing": {
+    "name": "Frequent Sneezing",
+    "category": "Respiratory",
+    "description": "Involuntary convulsive expulsion of air from the lungs through the nose and mouth."
+  },
+  "nasal_congestion": {
+    "name": "Nasal Congestion (Stuffy Nose)",
+    "category": "Respiratory",
+    "description": "Blockage of nasal passages due to swollen blood vessels and mucous membranes."
+  },
+  "sore_throat": {
+    "name": "Sore Throat (Pharyngitis)",
+    "category": "Respiratory",
+    "description": "Pain, scratchiness, or irritation of the throat that often worsens when swallowing."
+  },
+  "mild_cough": {
+    "name": "Mild Cough",
+    "category": "Respiratory",
+    "description": "Occasional or mild coughing without significant phlegm."
+  },
+  "dry_cough": {
+    "name": "Dry / Hacking Cough",
+    "category": "Respiratory",
+    "description": "Persistent tickling cough that produces little to no phlegm or mucus."
+  },
+  "productive_cough_with_phlegm": {
+    "name": "Productive Cough with Phlegm",
+    "category": "Respiratory",
+    "description": "Cough bringing up thick, discolored, green, yellow, or rusty sputum from the lungs."
+  },
+  "persistent_deep_cough": {
+    "name": "Persistent Deep Chest Cough",
+    "category": "Respiratory",
+    "description": "Racking, deep cough originating from irritated bronchial airways lasting weeks."
+  },
+  "clear_yellow_or_green_mucus": {
+    "name": "Clear, Yellow, or Green Bronchial Mucus",
+    "category": "Respiratory",
+    "description": "Airway sputum coughed up from inflamed bronchial passages."
+  },
+  "chest_soreness_from_coughing": {
+    "name": "Chest Soreness from Coughing",
+    "category": "Respiratory",
+    "description": "Sore, bruised sensation across thoracic muscles caused by violent coughing spells."
+  },
+  "shortness_of_breath": {
+    "name": "Shortness of Breath (Dyspnea)",
+    "category": "Respiratory",
+    "description": "Difficulty drawing sufficient air, feeling winded, or rapid labored breathing."
+  },
+  "mild_shortness_of_breath": {
+    "name": "Mild Breathlessness on Exertion",
+    "category": "Respiratory",
+    "description": "Feeling winded during routine tasks like climbing stairs or walking."
+  },
+  "wheezing": {
+    "name": "Wheezing",
+    "category": "Respiratory",
+    "description": "A high-pitched musical whistling sound made while breathing, caused by narrowed bronchial airways."
+  },
+  "wheezing_rattling_chest": {
+    "name": "Wheezing & Rattling Chest Sound",
+    "category": "Respiratory",
+    "description": "Audible rhonchi and rattling vibratory sensations felt over the chest wall."
+  },
+  "chest_tightness": {
+    "name": "Chest Tightness",
+    "category": "Respiratory",
+    "description": "Feeling of pressure, constriction, or a heavy band wrapped tightly around the chest."
+  },
+  "chest_pain_when_breathing": {
+    "name": "Pleuritic Chest Pain (Pain on Inhaling)",
+    "category": "Respiratory",
+    "description": "Sharp stabbing pain when taking a deep breath or coughing."
+  },
+  "coughing_at_night": {
+    "name": "Coughing Worse at Night",
+    "category": "Respiratory",
+    "description": "Spasmodic cough episodes that disrupt sleep when lying down flat."
+  },
+  "facial_pain_and_pressure": {
+    "name": "Facial Pain and Sinus Pressure",
+    "category": "Respiratory",
+    "description": "Aching or fullness over cheekbones, forehead, bridge of nose, or behind eyes."
+  },
+  "headache_worse_bending_forward": {
+    "name": "Headache Worse When Bending Forward",
+    "category": "Respiratory",
+    "description": "Throbbing facial pressure that dramatically spikes when lowering head."
+  },
+  "thick_yellow_or_green_nasal_discharge": {
+    "name": "Thick Yellow/Green Nasal Discharge",
+    "category": "Respiratory",
+    "description": "Purulent thick nasal secretions signifying sinus mucosal inflammation."
+  },
+  "loss_of_taste_or_smell": {
+    "name": "Loss of Smell or Taste (Anosmia/Ageusia)",
+    "category": "Respiratory",
+    "description": "Sudden diminution or complete absence of ability to taste foods or perceive odors."
+  },
+  "frequent_sneezing": {
+    "name": "Paroxysmal Sneezing Fits",
+    "category": "Respiratory",
+    "description": "Rapid clusters of 5-10 consecutive sneezes triggered by airborne allergens."
+  },
+  "clear_runny_nose": {
+    "name": "Profuse Clear Watery Rhinorrhea",
+    "category": "Respiratory",
+    "description": "Thin, watery, drip-like liquid draining continuously from nostrils."
+  },
+  "nasal_itching": {
+    "name": "Nasal & Palatal Itching",
+    "category": "Respiratory",
+    "description": "Intense ticklish itching inside the nose, causing the 'allergic salute' rubbing habit."
+  },
+  "postnasal_drip": {
+    "name": "Postnasal Drip",
+    "category": "Respiratory",
+    "description": "Sensation of mucus constantly trickling down the back of the throat, prompting throat clearing."
+  },
+  "reduced_sense_of_smell": {
+    "name": "Reduced Olfaction (Hyposmia)",
+    "category": "Respiratory",
+    "description": "Muffled ability to appreciate fragrances and food aromas due to blocked clefts."
+  },
+  "sudden_severe_sore_throat": {
+    "name": "Sudden Severe Throat Pain (Odynophagia)",
+    "category": "Respiratory",
+    "description": "Rapid onset of excruciating throat pain making swallowing saliva agonizing."
+  },
+  "painful_swallowing": {
+    "name": "Severe Painful Swallowing",
+    "category": "Respiratory",
+    "description": "Sharp pain shooting into the ears whenever food, liquids, or saliva is swallowed."
+  },
+  "white_patches_pus_on_tonsils": {
+    "name": "White Patches / Exudate on Tonsils",
+    "category": "Respiratory",
+    "description": "Creamy yellowish-white follicular spots of purulent exudate coating enlarged tonsils."
+  },
+  "swollen_tender_neck_lymph_nodes": {
+    "name": "Swollen Tender Anterior Neck Nodes",
+    "category": "Respiratory",
+    "description": "Painful palpable pea-to-marble sized lymph glands beneath angle of jaw."
+  },
+  "red_spots_on_roof_of_mouth_petechiae": {
+    "name": "Palatal Petechiae (Red Spots on Roof of Mouth)",
+    "category": "Respiratory",
+    "description": "Pinpoint reddish-purple hemorrhages across soft palate."
+  },
+  "high_fever": {
+    "name": "High Fever (>101°F / 38.3°C)",
+    "category": "General",
+    "description": "Elevated core body temperature significantly above the standard normal range."
+  },
+  "low_grade_fever": {
+    "name": "Low-Grade Fever (99.5°F - 100.9°F)",
+    "category": "General",
+    "description": "Mildly elevated body temperature often accompanied by warmth or slight flush."
+  },
+  "chills": {
+    "name": "Chills & Shivering",
+    "category": "General",
+    "description": "Feeling uncomfortably cold with involuntary muscular shivering and goosebumps."
+  },
+  "shaking_chills": {
+    "name": "Violent Shaking Chills (Rigors)",
+    "category": "General",
+    "description": "Violent teeth-chattering shaking chills typical of bacteremia or deep infection."
+  },
+  "shivering_chills": {
+    "name": "Shivering Cold Paroxysms",
+    "category": "General",
+    "description": "Intense cold stage requiring heavy blankets before fever spike."
+  },
+  "fatigue": {
+    "name": "Fatigue & Malaise",
+    "category": "General",
+    "description": "Persistent weariness, generalized lack of vitality, and reduced physical stamina."
+  },
+  "extreme_fatigue": {
+    "name": "Extreme Exhaustion / Prostration",
+    "category": "General",
+    "description": "Overwhelming profound exhaustion preventing basic out-of-bed daily functions."
+  },
+  "severe_body_aches": {
+    "name": "Severe Body Aches (Myalgia)",
+    "category": "General",
+    "description": "Deep muscular aches throughout back, limbs, and neck."
+  },
+  "unexplained_weight_loss": {
+    "name": "Unexplained Weight Loss",
+    "category": "General",
+    "description": "Noticeable drop in body weight without dieting or increased physical exertion."
+  },
+  "unexplained_weight_gain": {
+    "name": "Unexplained Weight Gain",
+    "category": "General",
+    "description": "Gaining weight despite no increase in caloric intake or decrease in activity."
+  },
+  "sweating": {
+    "name": "Night Sweats / Excessive Perspiration",
+    "category": "General",
+    "description": "Profuse drenching sweating, especially soaking clothes or bedsheets."
+  },
+  "excessive_sweating": {
+    "name": "Drenching Diaphoresis",
+    "category": "General",
+    "description": "Continuous profuse cold or warm sweats requiring clothing changes."
+  },
+  "profuse_sweating": {
+    "name": "Crisis Sweating Stage",
+    "category": "General",
+    "description": "Massive evaporative sweating phase marking end of febrile paroxysm."
+  },
+  "weakness": {
+    "name": "Generalized Physical Weakness",
+    "category": "General",
+    "description": "Difficulty performing basic muscular movements due to systemic debility."
+  },
+  "severe_weakness_and_fatigue": {
+    "name": "Severe Systemic Weakness",
+    "category": "General",
+    "description": "Inability to sustain upright posture without trembling exhaustion."
+  },
+  "chronic_fatigue": {
+    "name": "Chronic Lethargy / Sluggishness",
+    "category": "General",
+    "description": "Constant low energy, sluggish cognitive function, and prolonged morning sleep inertia."
+  },
+  "fever_and_chills": {
+    "name": "Fever with Accompanying Chills",
+    "category": "General",
+    "description": "Fluctuating thermal dysregulation with cold spells followed by sweats."
+  },
+  "fever": {
+    "name": "Elevated Temperature / Pyrexia",
+    "category": "General",
+    "description": "Core body temperature elevated above 100.4°F (38.0°C)."
+  },
+  "step_ladder_prolonged_fever": {
+    "name": "Prolonged Step-Ladder Fever",
+    "category": "General",
+    "description": "Fever that climbs higher each day in step-like succession, persisting for weeks."
+  },
+  "cyclical_high_fever": {
+    "name": "Cyclical Fever Paroxysms (Every 48/72h)",
+    "category": "General",
+    "description": "Predictable rhythmic cycles of violent chills, soaring temperatures, and sweats."
+  },
+  "cold_intolerance": {
+    "name": "Intolerance to Cold",
+    "category": "General",
+    "description": "Feeling freezing cold and shivering when others are comfortable in room temperature."
+  },
+  "excessive_thirst": {
+    "name": "Excessive Thirst (Polydipsia)",
+    "category": "General",
+    "description": "Unquenchable dry mouth and constant craving for water despite high intake."
+  },
+  "increased_hunger": {
+    "name": "Increased Appetite (Polyphagia)",
+    "category": "General",
+    "description": "Constant gnawing hunger despite eating ample meals."
+  },
+  "headache": {
+    "name": "General Headache",
+    "category": "Neurological",
+    "description": "Diffuse dull ache or pressure spanning the head or forehead."
+  },
+  "mild_headache": {
+    "name": "Mild Frontal Headache",
+    "category": "Neurological",
+    "description": "Mild, nagging tension-type ache across forehead or temples."
+  },
+  "severe_headache": {
+    "name": "Severe Splitting Headache",
+    "category": "Neurological",
+    "description": "Intense head pain causing difficulty focusing or keeping eyes open."
+  },
+  "throbbing_headache": {
+    "name": "Intense Throbbing Headache",
+    "category": "Neurological",
+    "description": "Severe pulsating, pounding unilateral or bilateral headache characteristic of migraine."
+  },
+  "occipital_headache": {
+    "name": "Occipital / Morning Headache",
+    "category": "Neurological",
+    "description": "Dull ache located at base of skull / back of neck upon waking, seen in hypertension."
+  },
+  "sensitivity_to_light": {
+    "name": "Sensitivity to Light (Photophobia)",
+    "category": "Neurological",
+    "description": "Discomfort or pain in the eyes triggered by normal daylight or room lighting."
+  },
+  "sensitivity_to_sound": {
+    "name": "Sensitivity to Sound (Phonophobia)",
+    "category": "Neurological",
+    "description": "Heightened intolerance to normal conversational sounds and ambient noise."
+  },
+  "visual_aura": {
+    "name": "Visual Aura (Flashes / Blind Spots)",
+    "category": "Neurological",
+    "description": "Transient zigzag shimmering lights, scintillating scotomas, or blind patches in vision."
+  },
+  "dizziness": {
+    "name": "Dizziness & Lightheadedness",
+    "category": "Neurological",
+    "description": "Feeling woozy, unsteady on your feet, or feeling close to fainting."
+  },
+  "spinning_sensation_vertigo": {
+    "name": "Spinning Sensation (True Vertigo)",
+    "category": "Neurological",
+    "description": "Hallucination of motion where surroundings violently rotate, tilt, or whirl."
+  },
+  "dizziness_triggered_by_head_movement": {
+    "name": "Dizziness Triggered by Head Turn",
+    "category": "Neurological",
+    "description": "Sudden vertigo triggered when rolling over in bed, tilting head up, or looking down."
+  },
+  "loss_of_balance_unsteadiness": {
+    "name": "Postural Unsteadiness & Dysequilibrium",
+    "category": "Neurological",
+    "description": "Tendency to veer to one side when walking, feeling pulled down or off-balance."
+  },
+  "nausea_with_movement": {
+    "name": "Movement-Induced Motion Sickness",
+    "category": "Neurological",
+    "description": "Sudden waves of nausea triggered by visual motion or head position changes."
+  },
+  "abnormal_rhythmic_eye_movements_nystagmus": {
+    "name": "Rhythmic Involuntary Eye Twitches (Nystagmus)",
+    "category": "Neurological",
+    "description": "Involuntary rapid jerking movements of eyeballs when looking sideways."
+  },
+  "blurred_vision": {
+    "name": "Blurred or Fluctuating Vision",
+    "category": "Neurological",
+    "description": "Inability to see fine details sharply, often caused by lens osmotic shifts or elevated BP."
+  },
+  "tingling_in_feet": {
+    "name": "Numbness / Tingling in Feet (Neuropathy)",
+    "category": "Neurological",
+    "description": "Pins-and-needles or burning numbness starting in toes and soles of feet."
+  },
+  "burning_tingling_nerve_pain": {
+    "name": "Burning Dermatomal Nerve Pain",
+    "category": "Neurological",
+    "description": "Electric, lancinating, or burning pain traced along a single thoracic or facial nerve pathway."
+  },
+  "extreme_skin_sensitivity_to_touch": {
+    "name": "Skin Allodynia (Pain from Gentle Touch)",
+    "category": "Neurological",
+    "description": "Agonizing pain triggered by light contact of a shirt, breeze, or bedsheet on skin."
+  },
+  "nausea": {
+    "name": "Nausea",
+    "category": "Gastrointestinal",
+    "description": "Uneasy sensation in stomach with an involuntary inclination to vomit."
+  },
+  "vomiting": {
+    "name": "Vomiting",
+    "category": "Gastrointestinal",
+    "description": "Forceful oral expulsion of gastric contents."
+  },
+  "nausea_and_vomiting": {
+    "name": "Nausea & Protracted Vomiting",
+    "category": "Gastrointestinal",
+    "description": "Persistent recurring nausea culminating in repeated emesis."
+  },
+  "watery_diarrhea": {
+    "name": "Watery Diarrhea",
+    "category": "Gastrointestinal",
+    "description": "Frequent loose, unformed, watery liquid bowel evacuations."
+  },
+  "abdominal_cramps": {
+    "name": "Abdominal Cramping",
+    "category": "Gastrointestinal",
+    "description": "Spasmodic painful clenching sensations across middle or lower stomach."
+  },
+  "abdominal_pain": {
+    "name": "Generalized Abdominal Aching",
+    "category": "Gastrointestinal",
+    "description": "Continuous dull or diffuse abdominal soreness."
+  },
+  "cramping_abdominal_pain_relieved_by_defecation": {
+    "name": "Cramping Pain Relieved by Defecation",
+    "category": "Gastrointestinal",
+    "description": "Lower belly cramps that noticeably subside immediately after passing stool or gas."
+  },
+  "chronic_bloating_and_gas": {
+    "name": "Chronic Bloating & Flatulence",
+    "category": "Gastrointestinal",
+    "description": "Distended belly feeling tight as a drum, excessive gas expulsion."
+  },
+  "alternating_diarrhea_and_constipation": {
+    "name": "Alternating Diarrhea & Constipation",
+    "category": "Gastrointestinal",
+    "description": "Bowel unpredictably swinging between watery stools and stubborn hard pellets."
+  },
+  "mucus_in_stool": {
+    "name": "Clear or White Mucus in Stool",
+    "category": "Gastrointestinal",
+    "description": "Jelly-like mucosal strands coating bowel movements without blood."
+  },
+  "heartburn": {
+    "name": "Heartburn (Pyrosis)",
+    "category": "Gastrointestinal",
+    "description": "Burning sensation rising from epigastrium up into mid-chest and retrosternal area."
+  },
+  "acid_regurgitation": {
+    "name": "Acid Regurgitation",
+    "category": "Gastrointestinal",
+    "description": "Sour, bitter, acidic gastric juice backing up into the mouth or throat."
+  },
+  "chest_discomfort": {
+    "name": "Retrosternal Chest Burning",
+    "category": "Gastrointestinal",
+    "description": "Uncomfortable warmth or tight burning behind the breastbone after eating."
+  },
+  "difficulty_swallowing": {
+    "name": "Difficulty Swallowing (Dysphagia)",
+    "category": "Gastrointestinal",
+    "description": "Sensation of food traveling slowly or pausing behind the sternum."
+  },
+  "sour_taste_in_mouth": {
+    "name": "Sour Acidic Taste in Mouth",
+    "category": "Gastrointestinal",
+    "description": "Metallic or vinegar-like sour reflux taste lingering on posterior tongue."
+  },
+  "burning_stomach_pain": {
+    "name": "Burning Stomach Pain (Epigastric)",
+    "category": "Gastrointestinal",
+    "description": "Gnawing burning epigastric discomfort located between the navel and breastbone."
+  },
+  "pain_worse_on_empty_stomach": {
+    "name": "Pain Worse on Empty Stomach",
+    "category": "Gastrointestinal",
+    "description": "Stomach burning that intensifies 2-3 hours after meals or at 2 AM, relieved temporarily by food."
+  },
+  "loss_of_appetite": {
+    "name": "Loss of Appetite (Anorexia)",
+    "category": "Gastrointestinal",
+    "description": "Marked disinterest in eating meals or feeling early satiety."
+  },
+  "right_lower_quadrant_abdominal_pain": {
+    "name": "Right Lower Abdomen Pain",
+    "category": "Gastrointestinal",
+    "description": "Sharp, intense localized pain in McBurney's point (right pelvic lower quadrant)."
+  },
+  "pain_starting_near_navel_moving_to_lower_right": {
+    "name": "Periumbilical Pain Migrating to Lower Right",
+    "category": "Gastrointestinal",
+    "description": "Classic appendicular pain pattern migrating over 12-24 hours."
+  },
+  "rebound_tenderness": {
+    "name": "Rebound Tenderness",
+    "category": "Gastrointestinal",
+    "description": "Pain that becomes sharply worse when abdominal pressure is suddenly released."
+  },
+  "constipation": {
+    "name": "Infrequent Hard Stools (Constipation)",
+    "category": "Gastrointestinal",
+    "description": "Fewer than 3 bowel movements per week with straining and hard dry stools."
+  },
+  "burning_urination": {
+    "name": "Burning Sensation During Urination (Dysuria)",
+    "category": "Urinary",
+    "description": "Sharp stinging or scalding pain along the urethra while passing urine."
+  },
+  "painful_burning_urination": {
+    "name": "Severe Painful Dysuria",
+    "category": "Urinary",
+    "description": "Intense scalding pain and urethral spasm upon voiding."
+  },
+  "frequent_urination": {
+    "name": "Frequent Urination (Frequency)",
+    "category": "Urinary",
+    "description": "Needing to urinate far more often than usual throughout day and night."
+  },
+  "urgency_to_urinate": {
+    "name": "Urgent Need to Urinate",
+    "category": "Urinary",
+    "description": "Sudden, compelling, uncontrollable urge to pass urine immediately."
+  },
+  "frequent_need_to_urinate": {
+    "name": "Persistent Urge with Little Urine Passed",
+    "category": "Urinary",
+    "description": "Running to the restroom frequently only to pass tiny trickles of urine."
+  },
+  "cloudy_urine": {
+    "name": "Cloudy or Malodorous Urine",
+    "category": "Urinary",
+    "description": "Turbid, murky, or pungent-smelling urine indicating presence of white cells or bacteria."
+  },
+  "blood_in_urine": {
+    "name": "Blood in Urine (Hematuria)",
+    "category": "Urinary",
+    "description": "Pink, red, or smoky brownish discoloration of urine."
+  },
+  "severe_sharp_flank_pain": {
+    "name": "Severe Sharp Flank Pain (Renal Colic)",
+    "category": "Urinary",
+    "description": "Excruciating intermittent spasms in the side and back beneath the ribs."
+  },
+  "pain_radiating_to_groin": {
+    "name": "Pain Radiating Down to Groin / Scrotum / Labia",
+    "category": "Urinary",
+    "description": "Referred ureteral pain traveling along the path of urinary obstruction."
+  },
+  "skin_rash": {
+    "name": "Skin Rash / Erythema",
+    "category": "Dermatological",
+    "description": "Widespread redness, maculopapular bumps, or spotted eruptions across skin."
+  },
+  "intense_skin_itching": {
+    "name": "Intense Skin Itching (Pruritus)",
+    "category": "Dermatological",
+    "description": "Severe irritating sensation prompting an overwhelming compulsion to scratch."
+  },
+  "red_to_brownish_skin_patches": {
+    "name": "Red to Brownish Scaly Patches",
+    "category": "Dermatological",
+    "description": "Inflamed, dry, lichenified plaques on flexural creases, hands, or cheeks."
+  },
+  "dry_scaly_skin": {
+    "name": "Dry, Flaky, Cracking Skin",
+    "category": "Dermatological",
+    "description": "Loss of cutaneous moisture causing rough peeling texture and fissure development."
+  },
+  "skin_cracking": {
+    "name": "Painful Fissures & Skin Cracks",
+    "category": "Dermatological",
+    "description": "Deep cuts or fissures opening in thickened dry skin creases."
+  },
+  "dry_skin_and_hair_loss": {
+    "name": "Coarse Dry Skin & Brittle Hair",
+    "category": "Dermatological",
+    "description": "Thinning, coarse brittle hair and rough, pale scaly skin."
+  },
+  "unilateral_band_of_blistering_rash": {
+    "name": "Unilateral Band of Blistering Rash",
+    "category": "Dermatological",
+    "description": "A distinct stripe or cluster of red bumps and blisters restricted strictly to one side of torso or face."
+  },
+  "fluid_filled_blisters_along_dermatome": {
+    "name": "Fluid-Filled Vesicular Blisters",
+    "category": "Dermatological",
+    "description": "Clusters of clear fluid-filled blisters that later turn yellowish and crust over."
+  },
+  "watery_eyes": {
+    "name": "Watery Eyes (Epiphora)",
+    "category": "Eye/ENT",
+    "description": "Excess tear overflow running down the face from conjunctival irritation."
+  },
+  "itchy_watery_eyes": {
+    "name": "Intense Itching & Redness of Eyes",
+    "category": "Eye/ENT",
+    "description": "Irritated, itchy conjunctiva prompting frequent eye rubbing."
+  },
+  "pain_behind_eyes": {
+    "name": "Severe Retro-Orbital Pain (Pain Behind Eyes)",
+    "category": "Eye/ENT",
+    "description": "Deep aching pain behind eyeball globes exacerbated by ocular movement."
+  },
+  "redness_in_white_of_eye": {
+    "name": "Redness in White of Eye (Pink Eye)",
+    "category": "Eye/ENT",
+    "description": "Bright pink or fiery red dilation of conjunctival capillaries."
+  },
+  "eye_itching_or_burning": {
+    "name": "Ocular Itching, Stinging, or Burning",
+    "category": "Eye/ENT",
+    "description": "Irritating hot burning or intense scratching sensation on conjunctival surface."
+  },
+  "discharge_crusting_eyelids_shut": {
+    "name": "Eyelid Crusting & Pus Discharge",
+    "category": "Eye/ENT",
+    "description": "Sticky mucus or yellow crust cementing eyelids glued shut upon waking."
+  },
+  "gritty_foreign_body_sensation": {
+    "name": "Gritty Sensation (Sand in Eye)",
+    "category": "Eye/ENT",
+    "description": "Constant feeling as if coarse grains of sand or eyelash is trapped under eyelid."
+  },
+  "joint_pain_with_movement": {
+    "name": "Joint Pain with Movement",
+    "category": "Musculoskeletal",
+    "description": "Aching pain in knees, hips, or fingers aggravated by walking or weight-bearing."
+  },
+  "joint_stiffness": {
+    "name": "Joint Stiffness (Morning <30 mins)",
+    "category": "Musculoskeletal",
+    "description": "Difficulty flexing joints upon waking that eases with gentle warm-up movement."
+  },
+  "joint_swelling": {
+    "name": "Joint Swelling and Warmth",
+    "category": "Musculoskeletal",
+    "description": "Fluid buildup and puffy distension around joint capsule."
+  },
+  "crepitus_grating_sound": {
+    "name": "Joint Crepitus (Crackling / Crunching)",
+    "category": "Musculoskeletal",
+    "description": "Crunching, grinding, or popping sound and sensation felt when flexing knee or hip."
+  },
+  "sudden_excruciating_big_toe_pain": {
+    "name": "Excruciating Big Toe Joint Pain (Podagra)",
+    "category": "Musculoskeletal",
+    "description": "Sudden onset violent pain, erythema, and hypersensitivity in the base joint of the big toe."
+  },
+  "joint_redness_and_heat": {
+    "name": "Joint Redness and Heat",
+    "category": "Musculoskeletal",
+    "description": "Inflamed skin over joint glowing hot, fiery red, and tense."
+  },
+  "pain_peaks_at_night": {
+    "name": "Joint Pain Waking from Deep Sleep",
+    "category": "Musculoskeletal",
+    "description": "Sudden nighttime inflammatory peak causing waking in agonizing pain."
+  },
+  "swollen_inflamed_joint": {
+    "name": "Puffy Hot Tense Joint Distension",
+    "category": "Musculoskeletal",
+    "description": "Rapid ballooning of joint with tense fluid collection."
+  },
+  "severe_joint_and_bone_pain": {
+    "name": "Severe Joint and Bone Pain ('Breakbone')",
+    "category": "Musculoskeletal",
+    "description": "Excruciating deep-seated pain in bones, knees, and lumbar spine."
+  }
+}

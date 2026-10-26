@@ -1,0 +1,2196 @@
+# build_data.py - Comprehensive Clinical Disease & Symptom Database Generator
+import json
+import os
+
+diseases = [
+    {
+        "id": "common-cold",
+        "name": "Common Cold (Viral Upper Respiratory Tract Infection)",
+        "category": "Respiratory",
+        "severity": "Mild",
+        "urgency_level": "Self-care",
+        "specialist": "General Physician / Family Doctor",
+        "overview": "A mild viral infection of the upper respiratory tract primarily affecting the nose and throat.",
+        "detailed_explanation": "The common cold is caused by over 200 different virus strains, most commonly rhinoviruses. It causes inflammation of the upper respiratory tract membranes, resulting in congestion, sneezing, and runny nose. It is generally self-limiting and resolves within 7 to 10 days in healthy individuals.",
+        "primary_symptoms": ["runny_nose", "sneezing", "nasal_congestion", "sore_throat"],
+        "secondary_symptoms": ["mild_cough", "low_grade_fever", "mild_headache", "fatigue", "watery_eyes"],
+        "causes_and_triggers": [
+            "Infection with Rhinoviruses, Coronaviruses, or Adenoviruses",
+            "Droplet transmission from coughing or sneezing",
+            "Touching contaminated surfaces and subsequently touching eyes/nose/mouth",
+            "Weakened immune system or chronic sleep deprivation"
+        ],
+        "medicines": [
+            {
+                "name": "Paracetamol (Acetaminophen)",
+                "type": "OTC",
+                "purpose": "Relieves mild fever, sore throat, and body aches",
+                "instructions": "500 mg every 4-6 hours as needed. Do not exceed 3000 mg in 24 hours.",
+                "precautions": "Avoid taking with other acetaminophen-containing cold remedies to prevent accidental liver toxicity."
+            },
+            {
+                "name": "Pseudoephedrine or Oxymetazoline Nasal Spray",
+                "type": "OTC",
+                "purpose": "Decongestant to shrink swollen nasal passages and ease breathing",
+                "instructions": "Nasal spray 2 sprays per nostril every 10-12 hours. Maximum 3 consecutive days.",
+                "precautions": "Do not use nasal decongestant sprays for more than 3 days to avoid rebound congestion (rhinitis medicamentosa)."
+            },
+            {
+                "name": "Cetirizine or Loratadine",
+                "type": "OTC",
+                "purpose": "Antihistamine to decrease histamine-mediated sneezing and rhinorrhea",
+                "instructions": "10 mg once daily with water.",
+                "precautions": "May cause mild drowsiness in sensitive individuals; avoid alcohol."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Warm Saline Gargle",
+                "description": "Dissolve 1/2 teaspoon of salt in 250ml of warm water. Gargle for 30 seconds, 3-4 times daily.",
+                "benefit": "Reduces pharyngeal edema, thins mucus, and flushes irritants."
+            },
+            {
+                "name": "Steam Inhalation with Eucalyptus",
+                "description": "Inhale steam from a bowl of hot water or facial steamer for 10-15 minutes.",
+                "benefit": "Moisturizes dry nasal passages and loosens thick airway mucus."
+            },
+            {
+                "name": "Honey & Warm Lemon Infusion",
+                "description": "Mix 1-2 teaspoons of natural honey and fresh lemon juice in warm water.",
+                "benefit": "Coats and soothes irritated throat mucosa and acts as a gentle natural cough suppressant."
+            },
+            {
+                "name": "Abundant Fluid Hydration",
+                "description": "Drink 2.5 to 3 liters of warm water, clear broths, and herbal teas daily.",
+                "benefit": "Prevents dehydration and keeps respiratory secretions fluid."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Clear vegetable and chicken broths", "Warm herbal teas (chamomile, ginger, peppermint)", "Citrus fruits rich in Vitamin C (oranges, amla, kiwi)", "Garlic and ginger infused soups"],
+            "avoid": ["Very cold or iced beverages", "Excessive dairy products if they make secretions feel thicker", "Sugary sodas and deep-fried snacks", "Alcohol and excessive caffeine"]
+        },
+        "lifestyle_tips": [
+            "Get at least 8 to 9 hours of restorative sleep to facilitate immune recovery.",
+            "Elevate your head with an extra pillow to ease nighttime nasal drainage.",
+            "Use a cool-mist room humidifier to keep indoor air humid."
+        ],
+        "diagnostic_tests": ["Clinical evaluation by doctor (rapid flu/COVID test if distinguishing diagnosis is needed)"],
+        "emergency_red_flags": [
+            "Fever higher than 102°F (38.9°C) lasting over 3 days",
+            "Shortness of breath or painful wheezing",
+            "Severe sinus pressure or forehead throbbing",
+            "Inability to swallow fluids"
+        ]
+    },
+    {
+        "id": "influenza",
+        "name": "Influenza (Flu)",
+        "category": "Respiratory",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "General Physician / Pulmonologist",
+        "overview": "A contagious viral respiratory infection caused by influenza viruses that attacks the throat, nose, and lungs.",
+        "detailed_explanation": "Influenza is an acute respiratory infection caused by Influenza viruses (A, B, or C). Unlike the common cold, flu onset is typically abrupt and characterized by high-grade fever, severe myalgia (body aches), extreme fatigue, and dry cough. It can lead to complications such as secondary bacterial pneumonia.",
+        "primary_symptoms": ["high_fever", "severe_body_aches", "extreme_fatigue", "chills", "dry_cough"],
+        "secondary_symptoms": ["headache", "sore_throat", "nasal_congestion", "loss_of_appetite", "sweating"],
+        "causes_and_triggers": [
+            "Infection with Influenza A or B viruses",
+            "Airborne droplet transmission from infected persons",
+            "Seasonal transmission spikes in winter months",
+            "High vulnerability among elderly, young children, and immunocompromised"
+        ],
+        "medicines": [
+            {
+                "name": "Oseltamivir (Tamiflu)",
+                "type": "Prescription",
+                "purpose": "Neuraminidase inhibitor antiviral drug that shortens illness duration and decreases complications",
+                "instructions": "75 mg twice daily for 5 days. Most effective when initiated within 48 hours of symptom onset.",
+                "precautions": "Must be prescribed by a physician. May cause nausea or mild headache."
+            },
+            {
+                "name": "Ibuprofen",
+                "type": "OTC",
+                "purpose": "Non-steroidal anti-inflammatory for reducing high fever and severe muscle pain",
+                "instructions": "400 mg every 6-8 hours with food. Do not exceed 1200 mg/day without medical supervision.",
+                "precautions": "Take with meals or milk. Avoid if you have active peptic ulcers or kidney dysfunction."
+            },
+            {
+                "name": "Dextromethorphan",
+                "type": "OTC",
+                "purpose": "Cough suppressant for disruptive, exhausting dry cough",
+                "instructions": "10-20 mg every 4 hours or 30 mg every 6-8 hours.",
+                "precautions": "Do not combine with MAO inhibitors or heavy sedatives."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Complete Bed Rest",
+                "description": "Strict physical rest for 4-7 days to direct bodily energy toward fighting viral replication.",
+                "benefit": "Accelerates recovery and prevents cardiovascular and pulmonary strain."
+            },
+            {
+                "name": "Electrolyte Rehydration Drinks",
+                "description": "Drink oral rehydration solutions (ORS), coconut water, or diluted fruit juices.",
+                "benefit": "Replenishes potassium and sodium lost through fever-induced sweating."
+            },
+            {
+                "name": "Lukewarm Sponge Baths",
+                "description": "Wipe forehead, neck, and underarms with lukewarm (not cold) water sponge.",
+                "benefit": "Helps safely dissipate heat during high-grade febrile episodes."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Warm chicken soup or lentil soup", "Steamed oats, bananas, and applesauce", "Ginger and turmeric milk or tea", "Freshly squeezed orange or pomegranate juice"],
+            "avoid": ["Hard-to-digest heavy meats and greasy foods", "Caffeinated energy drinks", "Sugary snacks and cold carbonated drinks"]
+        },
+        "lifestyle_tips": [
+            "Isolate in a well-ventilated bedroom to avoid infecting household members.",
+            "Wear a surgical or KN95 mask when leaving your room.",
+            "Disinfect frequently touched surfaces like doorknobs and phones."
+        ],
+        "diagnostic_tests": ["Rapid Influenza Diagnostic Test (RIDT)", "RT-PCR respiratory viral panel", "Complete Blood Count (CBC)"],
+        "emergency_red_flags": [
+            "Difficulty breathing or chest tightness",
+            "Bluish lips or fingertips (cyanosis)",
+            "Confusion, dizziness, or sudden lethargy",
+            "Fever that improves and then returns worse with productive purulent cough"
+        ]
+    },
+    {
+        "id": "covid-19",
+        "name": "COVID-19 (SARS-CoV-2)",
+        "category": "Respiratory",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "General Physician / Pulmonologist / Infectious Disease",
+        "overview": "A respiratory illness caused by the novel coronavirus SARS-CoV-2, ranging from mild cold-like symptoms to severe pneumonia.",
+        "detailed_explanation": "COVID-19 affects the respiratory tract and vascular endothelium. Classic hallmarks include loss of taste (ageusia) or smell (anosmia), dry cough, fever, shortness of breath, and prolonged fatigue. Some variants also present with gastrointestinal distress and conjunctivitis.",
+        "primary_symptoms": ["fever", "dry_cough", "loss_of_taste_or_smell", "shortness_of_breath", "fatigue"],
+        "secondary_symptoms": ["sore_throat", "headache", "body_aches", "diarrhea", "chest_tightness"],
+        "causes_and_triggers": [
+            "Infection with SARS-CoV-2 virus via aerosol particles and droplets",
+            "Close contact in indoor poorly ventilated crowded environments",
+            "Transmission before or without visible symptom onset"
+        ],
+        "medicines": [
+            {
+                "name": "Paxlovid (Nirmatrelvir / Ritonavir)",
+                "type": "Prescription",
+                "purpose": "Antiviral combination for high-risk patients to halt viral replication",
+                "instructions": "Taken orally twice daily for 5 days within 5 days of symptom onset as guided by doctor.",
+                "precautions": "Has multiple major drug interactions (e.g. statins, blood thinners). Strict doctor supervision mandatory."
+            },
+            {
+                "name": "Paracetamol & Ibuprofen",
+                "type": "OTC",
+                "purpose": "Symptomatic control of fever, headache, and myalgias",
+                "instructions": "Paracetamol 650mg every 6 hours as needed.",
+                "precautions": "Keep hydrated; monitor temperature."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Prone Position Breathing (Proning)",
+                "description": "Lying face down on your stomach with pillows under neck, hips, and lower legs for 30-60 minutes.",
+                "benefit": "Improves alveolar ventilation and lung oxygenation distribution."
+            },
+            {
+                "name": "Pulse Oximeter Monitoring",
+                "description": "Check SpO2 oxygen saturation level every 4 to 6 hours on an index finger.",
+                "benefit": "Enables early detection of 'silent hypoxia' (SpO2 dropping below 94%)."
+            },
+            {
+                "name": "Steam & Saline Nasal Irrigation",
+                "description": "Daily saline nasal rinse to reduce viral load in upper mucosal pathways.",
+                "benefit": "Clears nasal passages and dampens localized irritation."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["High-protein foods (eggs, pulses, fish, tofu) for tissue repair", "Warm turmeric golden milk with black pepper", "Zinc and Vitamin D rich foods (nuts, fortified grains)", "Lots of warm water and clear broths"],
+            "avoid": ["Ultra-processed foods", "High-sugar confections", "Cold processed meats", "Alcohol"]
+        },
+        "lifestyle_tips": [
+            "Isolate for a minimum of 5 days or until 24 hours fever-free without antipyretics.",
+            "Practice deep breathing exercises (spirometry or pursed-lip breathing).",
+            "Keep the room well-ventilated with open windows or HEPA air filters."
+        ],
+        "diagnostic_tests": ["Rapid Antigen Test (RAT)", "RT-PCR Test for SARS-CoV-2", "High-Resolution Chest CT (if hypoxia develops)"],
+        "emergency_red_flags": [
+            "SpO2 oxygen saturation falling below 93%",
+            "Severe persistent pain or pressure in chest",
+            "Inability to stay awake or new onset confusion",
+            "Pale, gray, or blue skin, lips, or nail beds"
+        ]
+    },
+    {
+        "id": "gastroenteritis",
+        "name": "Acute Gastroenteritis (Stomach Flu / Food Poisoning)",
+        "category": "Gastrointestinal",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Gastroenterologist / General Physician",
+        "overview": "An inflammation of the stomach and intestines causing diarrhea, cramps, nausea, and vomiting.",
+        "detailed_explanation": "Acute gastroenteritis is an irritation and inflammation of the gastrointestinal tract caused by viral infections (Norovirus, Rotavirus), bacteria (Salmonella, E. coli, Campylobacter), or toxins in spoiled food. The predominant risk is rapid dehydration and electrolyte depletion.",
+        "primary_symptoms": ["watery_diarrhea", "nausea", "vomiting", "abdominal_cramps"],
+        "secondary_symptoms": ["low_grade_fever", "loss_of_appetite", "weakness", "mild_headache", "dry_mouth"],
+        "causes_and_triggers": [
+            "Consumption of contaminated food or water",
+            "Fecal-oral transmission through unwashed hands",
+            "Under-cooked meat, unpasteurized milk, or contaminated shellfish",
+            "Close contact with an infected person"
+        ],
+        "medicines": [
+            {
+                "name": "Oral Rehydration Salts (ORS - WHO formulation)",
+                "type": "OTC",
+                "purpose": "Restores vital electrolytes (sodium, potassium, glucose) lost in stools",
+                "instructions": "Dissolve 1 sachet in 1 liter of clean drinking water; sip continuously after each loose stool.",
+                "precautions": "Do not mix with milk or sugary sodas. Must consume within 24 hours of preparation."
+            },
+            {
+                "name": "Ondansetron",
+                "type": "Prescription",
+                "purpose": "Antiemetic to stop intractable vomiting and allow oral fluid intake",
+                "instructions": "4-8 mg orally or disintegrating tablet as prescribed by physician.",
+                "precautions": "Do not use without medical advice; can cause constipation and headache."
+            },
+            {
+                "name": "Racecadotril or Loperamide",
+                "type": "OTC / Prescription",
+                "purpose": "Antisecretory / antimotility agent to reduce stool frequency",
+                "instructions": "Follow exact packaging or doctor directions.",
+                "precautions": "NEVER take antimotility drugs like Loperamide if there is high fever or blood/mucus in stool (dysentery)."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "The BRAT Diet Protocol",
+                "description": "Gradually reintroduce Bananas, Rice (white), Applesauce, and Toast once vomiting stops.",
+                "benefit": "Bland, low-fiber foods that firm up stool and are gentle on the gastric lining."
+            },
+            {
+                "name": "Ginger or Peppermint Tea",
+                "description": "Steep fresh ginger root in boiling water for 10 minutes and sip slowly when warm.",
+                "benefit": "Natural carminative and 5-HT3 receptor blocker that suppresses nausea and spasms."
+            },
+            {
+                "name": "Electrolyte Coconut Water",
+                "description": "Sip fresh green coconut water slowly in small sips.",
+                "benefit": "Provides potassium, magnesium, and natural hydration."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Clear broths and congee (rice porridge)", "Boiled potatoes without butter", "Plain crackers and toasted white bread", "Diluted chamomile or ginger tea"],
+            "avoid": ["Dairy products (milk, cheese, ice cream) due to temporary secondary lactose intolerance", "Fatty, greasy, or spicy foods", "Coffee and acidic fruit juices (orange, tomato)", "High-sugar foods"]
+        },
+        "lifestyle_tips": [
+            "Wash hands thoroughly with soap for at least 20 seconds before touching food.",
+            "Do not prepare food for other household members until 48 hours after symptoms clear.",
+            "Rest your stomach for 1-2 hours immediately after vomiting before attempting small sips of water."
+        ],
+        "diagnostic_tests": ["Stool routine and microscopy", "Stool culture for enteropathogens", "Serum electrolytes and kidney function test"],
+        "emergency_red_flags": [
+            "Signs of severe dehydration: no urination for >8 hours, sunken eyes, extreme dizziness upon standing",
+            "Stool contains visible blood or is black/tarry",
+            "Inability to keep any liquids down for more than 24 hours",
+            "High fever above 102°F accompanying diarrhea"
+        ]
+    },
+    {
+        "id": "gerd-acid-reflux",
+        "name": "GERD (Gastroesophageal Reflux Disease)",
+        "category": "Gastrointestinal",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Gastroenterologist",
+        "overview": "A chronic digestive condition where stomach acid or bile repeatedly flows back into the esophagus.",
+        "detailed_explanation": "Gastroesophageal reflux disease occurs when the lower esophageal sphincter (LES) weakens or relaxes abnormally, allowing corrosive gastric acid and pepsin to back up into the sensitive esophageal lining. Chronic irritation can lead to esophagitis, strictures, or Barrett's esophagus.",
+        "primary_symptoms": ["heartburn", "acid_regurgitation", "chest_discomfort", "difficulty_swallowing"],
+        "secondary_symptoms": ["sour_taste_in_mouth", "chronic_dry_cough", "globus_sensation", "hoarseness", "bloating"],
+        "causes_and_triggers": [
+            "Hiatal hernia or weak lower esophageal sphincter",
+            "Obesity or excessive abdominal pressure",
+            "Late-night heavy meals right before sleeping",
+            "Trigger foods: coffee, chocolate, citrus, tomatoes, garlic, mint, and alcohol"
+        ],
+        "medicines": [
+            {
+                "name": "Omeprazole or Pantoprazole (Proton Pump Inhibitors)",
+                "type": "OTC / Prescription",
+                "purpose": "Significantly decreases stomach acid production and allows esophageal tissue to heal",
+                "instructions": "20-40 mg once daily taken 30 to 60 minutes before the first meal of the day.",
+                "precautions": "Long-term usage should be supervised by a physician to monitor calcium and B12 levels."
+            },
+            {
+                "name": "Antacids (Magnesium Hydroxide / Aluminum Hydroxide)",
+                "type": "OTC",
+                "purpose": "Fast-acting neutralization of existing stomach acid for acute burning relief",
+                "instructions": "Chew 1-2 tablets or take 10-20 ml liquid as needed 1 hour after meals and at bedtime.",
+                "precautions": "Provides only temporary relief; avoid excessive doses if you have kidney disease."
+            },
+            {
+                "name": "Famotidine (H2 Blocker)",
+                "type": "OTC",
+                "purpose": "Reduces nighttime gastric acid secretion",
+                "instructions": "20 mg once or twice daily 30 minutes before food or bed.",
+                "precautions": "Consult physician for usage longer than 2 weeks."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Head of Bed Elevation",
+                "description": "Elevate the head of your bed 6 to 8 inches using wooden bed risers or a wedge pillow (do not just stack normal pillows).",
+                "benefit": "Uses gravity to prevent gastric acid from climbing up into the esophagus while asleep."
+            },
+            {
+                "name": "Chewing Sugar-Free Gum",
+                "description": "Chew sugar-free gum for 30 minutes following meals.",
+                "benefit": "Stimulates saliva production, which contains bicarbonate to neutralize esophageal acid."
+            },
+            {
+                "name": "Aloe Vera Juice",
+                "description": "Drink 2 ounces (60 ml) of food-grade purified aloe vera juice before meals.",
+                "benefit": "Soothes irritated mucosal lining and reduces inflammatory sensations."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Oatmeal, whole grains, and brown rice", "Non-citrus fruits (melons, bananas, pears)", "Lean poultry, baked fish, and egg whites", "Green vegetables (broccoli, asparagus, green beans)"],
+            "avoid": ["Fried, greasy, or deep-fried foods", "Citrus fruits (lemons, oranges, grapefruit) and tomatoes", "Chocolate, peppermint, and spearmint", "Carbonated beverages, alcohol, and dark roast coffee"]
+        },
+        "lifestyle_tips": [
+            "Stop eating at least 3 to 4 hours before lying down to sleep.",
+            "Eat smaller, more frequent meals rather than large, heavy dinners.",
+            "Avoid tight-fitting waistbands or tight belts that press into your abdomen.",
+            "Maintain a healthy weight to reduce intra-abdominal pressure."
+        ],
+        "diagnostic_tests": ["Upper Gastrointestinal Endoscopy (EGD)", "24-Hour Esophageal pH Monitoring", "Barium Swallow Esophagram"],
+        "emergency_red_flags": [
+            "Crushing chest pain radiating to arm, neck, or jaw (may mimic a heart attack - seek emergency care immediately)",
+            "Difficulty swallowing food (dysphagia) or feeling food get stuck in the esophagus",
+            "Vomiting coffee-ground material or red blood",
+            "Unexplained weight loss"
+        ]
+    },
+    {
+        "id": "migraine",
+        "name": "Migraine Headache",
+        "category": "Neurological",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Neurologist / Pain Specialist",
+        "overview": "A neurological condition characterized by intense, throbbing unilateral head pain often accompanied by visual sensory changes.",
+        "detailed_explanation": "Migraines involve neurovascular dysregulation characterized by trigeminovascular system activation, cortical spreading depression, and release of inflammatory neuropeptides such as CGRP. About one-third of sufferers experience a sensory 'aura' (flashing lights, blind spots) prior to the headache phase.",
+        "primary_symptoms": ["throbbing_headache", "sensitivity_to_light", "sensitivity_to_sound", "nausea"],
+        "secondary_symptoms": ["visual_aura", "dizziness", "unilateral_pain", "stiff_neck", "vomiting"],
+        "causes_and_triggers": [
+            "Fluctuating hormones (especially estrogen shifts)",
+            "Dietary triggers: aged cheeses, wine, monosodium glutamate (MSG), aspartame, chocolate",
+            "Sensory overstimulation: bright or flashing lights, loud noises, pungent perfumes",
+            "Irregular sleep patterns, skipped meals, emotional stress or weather barometric shifts"
+        ],
+        "medicines": [
+            {
+                "name": "Sumatriptan / Rizatriptan (Triptans)",
+                "type": "Prescription",
+                "purpose": "Specific 5-HT1B/1D receptor agonist that constricts dilated cranial blood vessels and halts migraine attack",
+                "instructions": "Take 1 tablet at the earliest onset of headache. A second dose may be taken after 2 hours if pain returns (max 200mg/day).",
+                "precautions": "Contraindicated in patients with uncontrolled hypertension, coronary artery disease, or history of stroke."
+            },
+            {
+                "name": "Naproxen Sodium or Ibuprofen",
+                "type": "OTC",
+                "purpose": "NSAID to dampen neurogenic inflammatory pathways",
+                "instructions": "500 mg Naproxen at onset of symptoms with a large glass of water.",
+                "precautions": "Take with food to protect gastric mucosa."
+            },
+            {
+                "name": "Combination Aspirin + Acetaminophen + Caffeine (Excedrin)",
+                "type": "OTC",
+                "purpose": "Synergistic pain relief and enhanced analgesic absorption via caffeine",
+                "instructions": "2 tablets at the start of symptoms. Do not take close to bedtime.",
+                "precautions": "Avoid overuse (maximum 2-3 days a week) to prevent medication overuse headaches (rebound headaches)."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Dark, Quiet Room Isolation",
+                "description": "Lie down in a pitch-black, noise-free room with eyes closed for 1 to 2 hours.",
+                "benefit": "Eliminates sensory input that overstimulates an already hyper-sensitized trigeminal nerve."
+            },
+            {
+                "name": "Cold Ice Pack on Forehead / Neck",
+                "description": "Apply a cold gel pack wrapped in a cloth across the forehead or the base of the skull for 15 minutes.",
+                "benefit": "Causes local vasoconstriction and numbs burning vascular throbbing."
+            },
+            {
+                "name": "Magnesium Glycinate & Riboflavin (B2)",
+                "description": "400-600 mg of magnesium glycinate and 400 mg Riboflavin daily for migraine prevention.",
+                "benefit": "Regulates cortical neuron excitability and mitochondrial energy production."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Hydration with mineral water containing magnesium", "Spinach, kale, pumpkin seeds, and almonds", "Ginger tea (acts on inflammatory prostaglandins)", "Consistent balanced meals at regular fixed hours"],
+            "avoid": ["Aged cheeses and cured deli meats (tyramine)", "Red wine and fermented alcoholic beverages", "Artificial sweeteners (aspartame) and excessive MSG", "Skipping breakfast or fasting for prolonged hours"]
+        },
+        "lifestyle_tips": [
+            "Maintain a consistent sleep-wake schedule, even on weekends.",
+            "Keep a detailed Migraine Diary to log foods, weather, and emotional triggers.",
+            "Practice progressive muscle relaxation or mindfulness meditation."
+        ],
+        "diagnostic_tests": ["Clinical Neurological Examination", "Brain MRI or CT Scan (to rule out secondary causes if atypical symptoms occur)"],
+        "emergency_red_flags": [
+            "Sudden, explosive 'thunderclap' headache reaching maximum peak within 60 seconds",
+            "Headache accompanied by high fever, stiff neck, confusion, seizures, or double vision",
+            "Headache accompanied by numbness, weakness on one side of the face or body, or speech slurring",
+            "First severe headache occurring after age 50"
+        ]
+    },
+    {
+        "id": "asthma",
+        "name": "Bronchial Asthma",
+        "category": "Respiratory",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Pulmonologist / Allergist",
+        "overview": "A chronic inflammatory disorder of the airways causing recurring episodes of wheezing, breathlessness, and coughing.",
+        "detailed_explanation": "Asthma is characterized by bronchial hyper-responsiveness, chronic airway mucosal inflammation, and reversible bronchospasm. When exposed to allergens, cold air, or physical exertion, the smooth muscles surrounding the bronchi contract, mucus production surges, and the lumen narrows significantly.",
+        "primary_symptoms": ["wheezing", "shortness_of_breath", "chest_tightness", "coughing_at_night"],
+        "secondary_symptoms": ["rapid_breathing", "fatigue", "difficulty_speaking", "anxiety", "pale_clammy_skin"],
+        "causes_and_triggers": [
+            "Airborne allergens: pollen, dust mites, mold spores, pet dander",
+            "Respiratory viral infections (rhinovirus, RSV)",
+            "Cold dry air or sudden weather shifts",
+            "Air pollutants, tobacco smoke, chemical fumes, and vigorous exercise"
+        ],
+        "medicines": [
+            {
+                "name": "Albuterol / Salbutamol (SABA Inhaler)",
+                "type": "Prescription",
+                "purpose": "Fast-acting rescue bronchodilator to instantly open constricted airways during an asthma flare",
+                "instructions": "1-2 puffs via spacer every 4-6 hours as needed for acute shortness of breath or wheeze.",
+                "precautions": "Always carry this rescue inhaler with you. If you need it more than twice weekly, your asthma is poorly controlled."
+            },
+            {
+                "name": "Fluticasone or Budesonide (Inhaled Corticosteroid)",
+                "type": "Prescription",
+                "purpose": "Daily maintenance controller to suppress underlying chronic bronchial inflammation",
+                "instructions": "1-2 puffs inhaled twice daily consistently, regardless of whether symptoms are present.",
+                "precautions": "Rinse mouth and gargle with water after each use to prevent oral thrush (candidiasis)."
+            },
+            {
+                "name": "Montelukast (Leukotriene Receptor Antagonist)",
+                "type": "Prescription",
+                "purpose": "Oral tablet blocking leukotriene-mediated airway constriction and allergic response",
+                "instructions": "10 mg taken orally once daily in the evening.",
+                "precautions": "Report any unusual behavioral or mood changes to your physician."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Pursed-Lip Breathing Technique",
+                "description": "Inhale slowly through your nose for 2 seconds, then pucker lips as if blowing a candle and exhale for 4 seconds.",
+                "benefit": "Maintains positive end-expiratory pressure in the airways, preventing collapse and trapping of air."
+            },
+            {
+                "name": "Peak Flow Meter Monitoring",
+                "description": "Blow forcefully into a handheld peak expiratory flow (PEF) meter every morning.",
+                "benefit": "Detects early bronchial narrowing hours before noticeable wheezing begins."
+            },
+            {
+                "name": "Warm Humidified Air & Hydration",
+                "description": "Sit in a bathroom with a warm shower running or drink warm herbal infusions.",
+                "benefit": "Liquefies tenacious bronchial mucous plugs."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Foods rich in Vitamin C and E (berries, spinach, bell peppers)", "Omega-3 fatty acids (flaxseeds, walnuts, salmon) to reduce systemic inflammation", "Magnesium-rich foods (seeds, leafy greens)", "Ample warm water"],
+            "avoid": ["Sulfite-containing foods (dried fruits, wine, processed pickled foods)", "Foods causing gas and severe bloating that push up against diaphragm", "Known personal food allergens (e.g. shellfish, peanuts)"]
+        },
+        "lifestyle_tips": [
+            "Use dust-mite proof encasings on pillows and mattresses.",
+            "Run a high-efficiency HEPA air purifier in your bedroom.",
+            "Wear a warm scarf covering nose and mouth when going out into freezing winter air.",
+            "Never smoke, and strictly avoid secondhand cigarette smoke."
+        ],
+        "diagnostic_tests": ["Spirometry with Pre- and Post-Bronchodilator Reversibility", "Fractional Exhaled Nitric Oxide (FeNO)", "Allergy Skin Prick Testing"],
+        "emergency_red_flags": [
+            "Rescue inhaler provides zero relief or relief lasts less than 2 hours",
+            "Severe breathlessness: unable to speak in full sentences without gasping",
+            "Intercostal retractions (skin sucking in around ribs and neck during inhalation)",
+            "Blue or gray lips, tongue, or fingernails"
+        ]
+    },
+    {
+        "id": "hypertension",
+        "name": "Hypertension (High Blood Pressure)",
+        "category": "Cardiovascular",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Cardiologist / General Physician",
+        "overview": "A common condition where the long-term force of the blood against artery walls is elevated enough to cause health problems.",
+        "detailed_explanation": "Hypertension is often dubbed the 'silent killer' because it commonly produces zero symptoms until significant vascular damage has accumulated. Blood pressure persistently at or above 130/80 mmHg strains the heart, hardens arteries, and drastically increases the risk of stroke, myocardial infarction, and kidney failure.",
+        "primary_symptoms": ["occipital_headache", "dizziness", "shortness_of_breath", "blurred_vision"],
+        "secondary_symptoms": ["flushing", "nosebleeds", "palpitations", "fatigue", "chest_fluttering"],
+        "causes_and_triggers": [
+            "High dietary sodium intake (>2300 mg/day)",
+            "Sedentary lifestyle and excess body weight",
+            "Chronic stress and tobacco consumption",
+            "Genetic predisposition and age-related arterial stiffness"
+        ],
+        "medicines": [
+            {
+                "name": "Amlodipine (Calcium Channel Blocker)",
+                "type": "Prescription",
+                "purpose": "Relaxes and dilates peripheral arterial smooth muscle cells to decrease blood pressure",
+                "instructions": "5-10 mg orally once daily in the morning or evening.",
+                "precautions": "May cause peripheral ankle edema; discuss with physician if swelling occurs."
+            },
+            {
+                "name": "Telmisartan or Losartan (ARBs)",
+                "type": "Prescription",
+                "purpose": "Blocks Angiotensin II receptors, preventing vascular constriction and protecting kidneys",
+                "instructions": "40-80 mg once daily.",
+                "precautions": "Contraindicated in pregnancy. Regular monitoring of serum potassium and creatinine required."
+            },
+            {
+                "name": "Hydrochlorothiazide (Thiazide Diuretic)",
+                "type": "Prescription",
+                "purpose": "Helps kidneys excrete excess water and sodium through urine",
+                "instructions": "12.5-25 mg taken in the morning to prevent nighttime urination.",
+                "precautions": "Monitor blood electrolytes periodically."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "DASH Diet Adoption",
+                "description": "Adopt the Dietary Approaches to Stop Hypertension eating plan rich in potassium, calcium, and magnesium.",
+                "benefit": "Proven in clinical trials to lower systolic BP by 8-14 mmHg within weeks."
+            },
+            {
+                "name": "Sodium Restriction (<1500mg/day)",
+                "description": "Stop adding table salt to food; eliminate canned soups, chips, and processed meats.",
+                "benefit": "Decreases extracellular fluid volume and reduces vascular resistance."
+            },
+            {
+                "name": "Daily 30-Minute Aerobic Walking",
+                "description": "Engage in brisk walking, cycling, or swimming 5 days per week.",
+                "benefit": "Improves endothelial nitric oxide synthesis and arterial elasticity."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Potassium-rich foods (bananas, sweet potatoes, spinach, avocados)", "Beetroot juice (high in dietary nitrates)", "Garlic and hibiscus tea", "Unsalted almonds, chia seeds, and oats"],
+            "avoid": ["Pickles, papads, soy sauce, and processed sausages", "Canned meals with high sodium preservatives", "Excessive alcohol and energy drinks", "Foods high in saturated trans fats"]
+        },
+        "lifestyle_tips": [
+            "Check blood pressure at home twice daily (morning and evening) with a validated arm cuff.",
+            "Practice slow, rhythmic deep breathing (6 breaths per minute) for 10 minutes daily.",
+            "Limit alcohol intake to under 1 standard drink per day or abstain completely.",
+            "Achieve and maintain a healthy body mass index (BMI 18.5 - 24.9)."
+        ],
+        "diagnostic_tests": ["Ambulatory 24-Hour Blood Pressure Monitoring", "Lipid Profile & Serum Creatinine", "Electrocardiogram (ECG / EKG)", "Urine Albumin-to-Creatinine Ratio"],
+        "emergency_red_flags": [
+            "Hypertensive crisis: Blood pressure over 180/120 mmHg",
+            "Severe chest pain or shortness of breath",
+            "Sudden numbness or paralysis in face, arms, or speech impediment",
+            "Severe visual disturbance or sudden blindness"
+        ]
+    },
+    {
+        "id": "type-2-diabetes",
+        "name": "Type 2 Diabetes Mellitus",
+        "category": "Endocrine",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Endocrinologist / Diabetologist",
+        "overview": "A metabolic disorder characterized by high blood glucose levels resulting from insulin resistance and progressive insulin deficiency.",
+        "detailed_explanation": "In Type 2 Diabetes, target tissues (skeletal muscle, liver, adipose) exhibit diminished responsiveness to insulin. As pancreatic beta cells fail to keep pace with demand, chronic hyperglycemia ensues, which over time damages microvascular (eyes, kidneys, nerves) and macrovascular (heart, brain) systems.",
+        "primary_symptoms": ["excessive_thirst", "frequent_urination", "unexplained_weight_loss", "increased_hunger"],
+        "secondary_symptoms": ["chronic_fatigue", "blurred_vision", "slow_healing_sores", "frequent_infections", "tingling_in_feet"],
+        "causes_and_triggers": [
+            "Peripheral insulin resistance associated with visceral obesity",
+            "Lack of regular physical activity and sedentary screen habits",
+            "Diets high in refined carbohydrates, fructose corn syrup, and processed sugars",
+            "Strong familial genetic history"
+        ],
+        "medicines": [
+            {
+                "name": "Metformin",
+                "type": "Prescription",
+                "purpose": "First-line oral antidiabetic that reduces hepatic glucose production and enhances insulin sensitivity",
+                "instructions": "500-1000 mg taken with or after evening dinner to minimize GI side effects.",
+                "precautions": "Must monitor kidney function (eGFR). Inform doctor before undergoing contrast CT scans."
+            },
+            {
+                "name": "Empagliflozin / Dapagliflozin (SGLT-2 Inhibitors)",
+                "type": "Prescription",
+                "purpose": "Promotes excretion of excess glucose via urine while protecting heart and kidneys",
+                "instructions": "10-25 mg taken once daily in the morning.",
+                "precautions": "Maintain good personal genital hygiene to prevent fungal urinary infections."
+            },
+            {
+                "name": "Glimepiride (Sulfonylurea)",
+                "type": "Prescription",
+                "purpose": "Stimulates pancreatic beta-cells to secrete more insulin",
+                "instructions": "1-2 mg taken immediately before the first main meal.",
+                "precautions": "Risk of hypoglycemia (low blood sugar); always carry fast-acting glucose tablets or candies."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Low Glycemic Index (GI) Meal Planning",
+                "description": "Replace white rice, refined bread, and sugar with steel-cut oats, legumes, quinoa, and non-starchy vegetables.",
+                "benefit": "Prevents rapid post-prandial glycemic spikes."
+            },
+            {
+                "name": "Post-Meal 15-Minute Walks",
+                "description": "Take a gentle 15-minute walk immediately following lunch and dinner.",
+                "benefit": "Muscle contractions transport glucose out of the bloodstream via GLUT4 translocation independently of insulin."
+            },
+            {
+                "name": "Fenugreek Seed Water",
+                "description": "Soak 1 teaspoon of fenugreek seeds in a glass of water overnight; drink in the morning on an empty stomach.",
+                "benefit": "Contains soluble galactomannan fiber that slows carbohydrate absorption."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Leafy greens, bitter gourd (karela), broccoli, and cucumbers", "High-fiber pulses, lentils, and sprouted beans", "Healthy fats: extra virgin olive oil, walnuts, chia seeds", "Lean proteins: chicken breast, fish, tofu, paneer"],
+            "avoid": ["Sugary sodas, packaged juices, and sweetened teas/coffees", "Refined flour pastries, white bread, and sweets", "Deep-fried snacks and trans-fat loaded processed foods", "Excessive tropical sweet fruits (mangoes, chiku) in uncontrolled states"]
+        },
+        "lifestyle_tips": [
+            "Log fasting and 2-hour post-meal blood sugar levels in a glucometer logbook.",
+            "Inspect your feet daily for small cuts, blisters, or calluses to prevent diabetic foot ulcers.",
+            "Schedule annual dilated eye exams and kidney microalbuminuria tests."
+        ],
+        "diagnostic_tests": ["Glycated Hemoglobin (HbA1c) test", "Fasting Blood Sugar (FBS) & Postprandial Glucose (PPBS)", "Oral Glucose Tolerance Test (OGTT)", "Urine Albumin/Creatinine Ratio"],
+        "emergency_red_flags": [
+            "Blood glucose dropping below 70 mg/dL with tremors, sweating, confusion (Hypoglycemia - consume fast sugar immediately!)",
+            "Fruity breath odor, rapid breathing, vomiting, confusion (Diabetic Ketoacidosis - DKA)",
+            "Extremely high blood sugar (>400 mg/dL) with drowsiness or disorientation",
+            "Non-healing foot ulcer showing redness, blackening, or discharge"
+        ]
+    },
+    {
+        "id": "pneumonia",
+        "name": "Pneumonia",
+        "category": "Respiratory",
+        "severity": "High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Pulmonologist / Infectious Disease Specialist",
+        "overview": "An infection that inflames the air sacs (alveoli) in one or both lungs, which may fill with fluid or purulent pus.",
+        "detailed_explanation": "Pneumonia can be bacterial (Streptococcus pneumoniae), viral (influenza, SARS-CoV-2), or fungal. When microbes overcome host defense mechanisms, inflammatory exudate floods the alveoli, severely impairing alveolar gas exchange and leading to hypoxemia.",
+        "primary_symptoms": ["productive_cough_with_phlegm", "high_fever", "chest_pain_when_breathing", "shortness_of_breath"],
+        "secondary_symptoms": ["shaking_chills", "excessive_sweating", "fatigue", "loss_of_appetite", "rapid_shallow_breathing"],
+        "causes_and_triggers": [
+            "Infection with Streptococcus pneumoniae, Mycoplasma, or respiratory viruses",
+            "Aspiration of food or fluids into respiratory passages",
+            "Recent preceding viral illness like severe influenza",
+            "Compromised immunity or chronic smoking"
+        ],
+        "medicines": [
+            {
+                "name": "Amoxicillin-Clavulanate or Azithromycin",
+                "type": "Prescription",
+                "purpose": "Antibacterial therapy targeting causative respiratory pathogens in bacterial pneumonia",
+                "instructions": "As specifically prescribed by your doctor. Complete the entire 5 to 7 day course without skipping.",
+                "precautions": "Antibiotics are ineffective against viral pneumonia. Never self-prescribe antibiotics."
+            },
+            {
+                "name": "Acetaminophen",
+                "type": "OTC",
+                "purpose": "Control high fever and relieve pleuritic chest discomfort",
+                "instructions": "500-650 mg every 6 hours as needed.",
+                "precautions": "Ensure adequate fluid intake."
+            },
+            {
+                "name": "Guaifenesin",
+                "type": "OTC",
+                "purpose": "Expectorant to thin thick alveolar mucus secretions",
+                "instructions": "200-400 mg every 4 hours with full glasses of water.",
+                "precautions": "Drink plenty of fluids for the expectorant to work effectively."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Chest Physical Therapy & Postural Drainage",
+                "description": "Gentle percussion on the back while lying in specific positions guided by a caregiver.",
+                "benefit": "Loosens thick, sticky lung secretions so they can be coughed out."
+            },
+            {
+                "name": "Incentive Spirometer Exercises",
+                "description": "Inhale slowly and deeply through an incentive spirometer device 10 times every waking hour.",
+                "benefit": "Re-expands collapsed alveoli (prevents atelectasis) and improves oxygen saturation."
+            },
+            {
+                "name": "Warm Fluid Ingestion",
+                "description": "Drink warm lemon water, herbal teas, and hot clear broths frequently.",
+                "benefit": "Prevents dehydration caused by high fever and thins respiratory tract secretions."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["High-calorie nutrient-dense soups and stews", "Easily digestible proteins: soft eggs, boiled chicken, lentils", "Warm turmeric golden milk", "Hydrating fresh coconut water and warm water"],
+            "avoid": ["Cold dairy if it makes mucus feel thicker", "Fried, oily, and heavy hard-to-chew foods", "Carbonated beverages and sugary sodas"]
+        },
+        "lifestyle_tips": [
+            "Maintain strict bed rest until cleared by your physician.",
+            "Do not smoke or expose yourself to wood smoke or chemical fumes.",
+            "Stay up-to-date with annual pneumococcal and influenza vaccinations."
+        ],
+        "diagnostic_tests": ["Chest X-Ray (Posteroanterior & Lateral)", "Complete Blood Count (CBC) with high WBC count", "Sputum Gram Stain and Culture", "Pulse Oximetry"],
+        "emergency_red_flags": [
+            "Oxygen saturation falling below 92%",
+            "Severe stabbing chest pain that stops you from inhaling",
+            "Coughing up rust-colored or frank red blood",
+            "Cyanosis (bluish tint around lips and fingertips) or confusion in elderly individuals"
+        ]
+    },
+    {
+        "id": "urinary-tract-infection",
+        "name": "Urinary Tract Infection (UTI / Cystitis)",
+        "category": "Urinary",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Urologist / General Physician",
+        "overview": "An infection in any part of the urinary system, most commonly the bladder (cystitis) and urethra.",
+        "detailed_explanation": "UTIs are predominantly caused by uropathogenic Escherichia coli (E. coli) originating from the gastrointestinal flora ascending through the urethra into the bladder. Women are at higher risk due to shorter urethral length. Untreated lower UTIs can ascend to kidneys (pyelonephritis).",
+        "primary_symptoms": ["burning_urination", "frequent_urination", "urgency_to_urinate", "cloudy_urine"],
+        "secondary_symptoms": ["pelvic_pain", "strong_smelling_urine", "trace_blood_in_urine", "low_grade_fever", "feeling_incomplete_bladder_emptying"],
+        "causes_and_triggers": [
+            "Bacterial contamination (E. coli ascending from bowel)",
+            "Delayed urination / holding urine for extended periods",
+            "Inadequate daily fluid intake",
+            "Sexual intercourse or use of diaphragms and spermicides"
+        ],
+        "medicines": [
+            {
+                "name": "Nitrofurantoin or Fosfomycin",
+                "type": "Prescription",
+                "purpose": "First-line urinary antibiotic targeting common uropathogens",
+                "instructions": "Nitrofurantoin 100 mg twice daily for 5 days with food, or Fosfomycin 3g single sachet dose.",
+                "precautions": "Requires physician prescription. Do not stop early even if burning subsides."
+            },
+            {
+                "name": "Phenazopyridine",
+                "type": "OTC / Prescription",
+                "purpose": "Urinary tract local analgesic to relieve intense dysuria and spasms",
+                "instructions": "100-200 mg three times daily after meals for maximum 2 days.",
+                "precautions": "Harmlessly discolors urine and contact lenses to bright reddish-orange."
+            },
+            {
+                "name": "Disodium Hydrogen Citrate (Urinary Alkalinizer)",
+                "type": "OTC",
+                "purpose": "Alkalinizes acidic urine to immediately alleviate burning sensation",
+                "instructions": "Mix 2 teaspoons in a full glass of water and drink 2-3 times daily.",
+                "precautions": "Use caution in patients with sodium restrictions or hypertension."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "High-Volume Water Ingestion",
+                "description": "Drink at least 2.5 to 3.5 liters of pure water throughout the day.",
+                "benefit": "Mechanically flushes bacteria out of the urinary tract lumen before they adhere to epithelial walls."
+            },
+            {
+                "name": "Unsweetened Pure Cranberry Juice / D-Mannose",
+                "description": "Consume 100% pure unsweetened cranberry juice or 2g D-Mannose powder daily.",
+                "benefit": "Proanthocyanidins prevent bacterial fimbriae from adhering to the urothelial lining."
+            },
+            {
+                "name": "Warm Heating Pad on Lower Abdomen",
+                "description": "Apply a hot water bottle or electric heating pad to your pubic area for 15 minutes.",
+                "benefit": "Relieves bladder spasms and localized pelvic discomfort."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Abundant clean water", "Probiotic foods (plain yogurt, kefir) to restore healthy flora", "High-antioxidant blueberries and cranberries", "Cucumbers and watermelon for natural mild diuresis"],
+            "avoid": ["Caffeine (coffee, strong teas), which irritates the bladder wall", "Alcohol and carbonated soda drinks", "Spicy curries and artificial sweeteners", "Citrus fruit juices if they aggravate burning"]
+        },
+        "lifestyle_tips": [
+            "Wipe strictly from front to back after using the toilet to avoid transferring bacteria.",
+            "Urinate promptly after sexual intercourse to flush out any bacteria.",
+            "Avoid holding your urine; empty your bladder as soon as you feel the urge."
+        ],
+        "diagnostic_tests": ["Urinalysis (Urine Routine & Microscopy for leukocytes, nitrites)", "Urine Culture and Antibiotic Sensitivity (Urine C/S)"],
+        "emergency_red_flags": [
+            "High fever with severe shaking chills",
+            "Severe pain in the flank or lower back (Kidney region)",
+            "Nausea and recurrent vomiting alongside urinary symptoms",
+            "Frank gross blood (hematuria) in urine"
+        ]
+    },
+    {
+        "id": "dengue-fever",
+        "name": "Dengue Fever",
+        "category": "Infectious",
+        "severity": "High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Infectious Disease Specialist / General Physician",
+        "overview": "A mosquito-borne viral infection causing high fever, severe retro-orbital eye pain, joint pain, and potential thrombocytopenia.",
+        "detailed_explanation": "Dengue virus (DENV-1 to DENV-4) is transmitted by daytime-biting female Aedes aegypti mosquitoes. It is notorious as 'breakbone fever' due to excruciating bone and muscle pain. Its critical danger phase starts around day 3-7 when fever subsides, risking plasma leakage, internal hemorrhage, and sharp platelet drop.",
+        "primary_symptoms": ["high_fever", "pain_behind_eyes", "severe_joint_and_bone_pain", "skin_rash"],
+        "secondary_symptoms": ["severe_headache", "nausea_and_vomiting", "mild_gum_or_nose_bleeding", "extreme_weakness", "loss_of_appetite"],
+        "causes_and_triggers": [
+            "Bite of an infected Aedes aegypti or Aedes albopictus mosquito",
+            "Stagnant water containers around houses (flower pots, buckets, coolers)",
+            "Warm tropical and subtropical rainy seasons"
+        ],
+        "medicines": [
+            {
+                "name": "Paracetamol (Acetaminophen)",
+                "type": "OTC",
+                "purpose": "Only approved antipyretic to control fever and pain in suspected dengue",
+                "instructions": "500-650 mg every 6 hours as needed. Strict adherence to maximum dose limits.",
+                "precautions": "CRITICAL: NEVER take Aspirin, Ibuprofen, Diclofenac, or any NSAIDs! They inhibit platelets and can trigger catastrophic internal bleeding."
+            },
+            {
+                "name": "Oral Rehydration Salts (ORS)",
+                "type": "OTC",
+                "purpose": "Maintains intravascular volume and prevents hypovolemic shock from capillary leakage",
+                "instructions": "Sip ORS and fluids regularly throughout waking hours.",
+                "precautions": "Maintain accurate fluid intake/output balance."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Papaya Leaf Extract",
+                "description": "Crush 2-3 fresh thoroughly washed young papaya leaves, extract 10-15 ml juice, consume twice daily.",
+                "benefit": "Contains carpaine and flavonoids shown in clinical studies to support platelet count recovery."
+            },
+            {
+                "name": "Coconut Water & Fresh Pomegranate Juice",
+                "description": "Drink fresh green tender coconut water and pomegranate juice 3 times daily.",
+                "benefit": "Restores vital electrolytes and supplies easily absorbable iron and hydration."
+            },
+            {
+                "name": "Strict Mosquito Bed Net Usage",
+                "description": "Rest under an insecticide-treated mosquito bed net even during the daytime.",
+                "benefit": "Prevents other mosquitoes from biting you and spreading the virus to family members."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Freshly prepared soups and porridges (khichdi, congee)", "Kiwi, pomegranate, and dragon fruit for vitamin C and minerals", "Electrolyte fluids: ORS, lemon water with salt, coconut water", "Boiled vegetables and mashed bananas"],
+            "avoid": ["Dark colored or red foods (beetroot, red sodas) that could confuse stool color in case of GI bleed", "Hard, abrasive, or crispy snacks that could scratch mouth lining", "Spicy, oily, and heavy fried foods"]
+        },
+        "lifestyle_tips": [
+            "Monitor platelet counts with daily Complete Blood Count (CBC) tests during days 3 to 7.",
+            "Eliminate all standing water sources in coolers, tire heaps, and flower pots within 100 meters of home.",
+            "Wear long-sleeved light-colored clothing and apply DEET/Picaridin mosquito repellent."
+        ],
+        "diagnostic_tests": ["Dengue NS1 Antigen ELISA (best during first 5 days)", "Dengue IgM & IgG Antibody Test", "Daily CBC to track Platelet count and Hematocrit (HCT)"],
+        "emergency_red_flags": [
+            "Severe persistent abdominal pain or persistent vomiting",
+            "Bleeding from gums, nose, or blood in vomit/stool (Dengue Hemorrhagic Fever)",
+            "Platelets dropping below 20,000 / μL or hematocrit rising rapidly",
+            "Cold, clammy extremities, rapid weak pulse, lethargy (Dengue Shock Syndrome - CALL EMERGENCY IMMEDIATELY)"
+        ]
+    },
+    {
+        "id": "appendicitis",
+        "name": "Acute Appendicitis",
+        "category": "Gastrointestinal",
+        "severity": "Critical / Emergency",
+        "urgency_level": "Immediate Emergency Care",
+        "specialist": "General Surgeon / Emergency Physician",
+        "overview": "Acute inflammation of the vermiform appendix, presenting a medical emergency requiring rapid intervention.",
+        "detailed_explanation": "Acute appendicitis occurs when the lumen of the appendix becomes obstructed by a fecalith (hardened stool), lymphoid hyperplasia, or foreign body. Luminal bacteria proliferate rapidly, intraluminal pressure mounts, venous thrombosis occurs, and ischemia develops. Without swift surgical excision, perforation occurs within 24-72 hours, resulting in peritonitis and life-threatening sepsis.",
+        "primary_symptoms": ["right_lower_quadrant_abdominal_pain", "pain_starting_near_navel_moving_to_lower_right", "nausea_and_vomiting", "rebound_tenderness"],
+        "secondary_symptoms": ["low_grade_fever", "loss_of_appetite", "constipation_or_diarrhea", "inability_to_pass_gas", "abdominal_swelling"],
+        "causes_and_triggers": [
+            "Obstruction of the appendix opening by a fecalith",
+            "Enlarged lymphoid follicles following a gastrointestinal infection",
+            "Intestinal parasites or rare benign tumors"
+        ],
+        "medicines": [
+            {
+                "name": "Intravenous Antibiotics & Analgesics (Hospital Administration)",
+                "type": "Prescription",
+                "purpose": "Broad-spectrum coverage prior to laparoscopic appendectomy surgery",
+                "instructions": "Administered exclusively in an emergency hospital setting by medical staff.",
+                "precautions": "CRITICAL: DO NOT take painkiller medications, laxatives, or enemas at home! Painkillers can mask the worsening of symptoms, and laxatives can cause the inflamed appendix to rupture immediately!"
+            }
+        ],
+        "remedies": [
+            {
+                "name": "NO Home Remedies - Emergency Medical Transport",
+                "description": "Do NOT apply heating pads to the abdomen (heat accelerates perforation). Do NOT eat or drink anything (keep stomach empty for emergency surgery).",
+                "benefit": "Immediate surgical consultation prevents peritonitis and abdominal sepsis."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Strictly NPO (Nothing by mouth) - do not eat or drink anything until evaluated by an emergency surgeon."],
+            "avoid": ["All foods, liquids, water, and oral pills until hospital clearance."]
+        },
+        "lifestyle_tips": [
+            "Lie completely still with knees bent toward chest to lessen abdominal wall tension while awaiting emergency transport.",
+            "Go straight to the nearest Emergency Department (ER)."
+        ],
+        "diagnostic_tests": ["Abdominal Ultrasound", "Contrast-Enhanced Abdominal CT Scan", "CBC with elevated leukocytosis (neutrophilia)", "C-Reactive Protein (CRP)"],
+        "emergency_red_flags": [
+            "Sudden temporary relief of pain followed by widespread agonizing abdominal rigidity (indicates appendix rupture!)",
+            "High fever, shaking chills, and rapid heart rate",
+            "Inability to walk upright due to severe sharp right pelvic pain",
+            "Extreme abdominal rigidity (board-like belly)"
+        ]
+    },
+    {
+        "id": "eczema",
+        "name": "Eczema (Atopic Dermatitis)",
+        "category": "Dermatological",
+        "severity": "Mild to Moderate",
+        "urgency_level": "Self-care",
+        "specialist": "Dermatologist",
+        "overview": "A chronic inflammatory skin condition characterized by dry, itchy, red, and irritated patches of skin.",
+        "detailed_explanation": "Atopic dermatitis involves a genetic dysfunction of the skin barrier (often linked to filaggrin gene mutations) combined with an overactive cutaneous immune response. The damaged stratum corneum permits excessive trans-epidermal water loss and allows allergens and irritants to penetrate, triggering persistent pruritus and the 'itch-scratch' vicious cycle.",
+        "primary_symptoms": ["intense_skin_itching", "red_to_brownish_skin_patches", "dry_scaly_skin", "skin_cracking"],
+        "secondary_symptoms": ["small_raised_fluid_bumps", "thickened_leathery_skin", "raw_sensitive_swollen_skin", "sleep_disturbance_from_itching"],
+        "causes_and_triggers": [
+            "Defective epidermal skin barrier proteins",
+            "Harsh chemical soaps, detergents, and synthetic fabrics (wool, polyester)",
+            "Dry, low-humidity winter weather or hot baths",
+            "Food allergens, dust mites, pet dander, and psychological stress"
+        ],
+        "medicines": [
+            {
+                "name": "Hydrocortisone 1% Cream or Betamethasone",
+                "type": "OTC / Prescription",
+                "purpose": "Topical corticosteroid to rapidly calm acute flare-up redness and dermal inflammation",
+                "instructions": "Apply a thin layer strictly to affected areas once or twice daily for up to 7-10 days.",
+                "precautions": "Avoid using potent topical steroids on the face, groin, or eyelids without dermatologist supervision to prevent skin thinning (atrophy)."
+            },
+            {
+                "name": "Tacrolimus / Pimecrolimus Ointment",
+                "type": "Prescription",
+                "purpose": "Non-steroidal topical calcineurin inhibitor for sensitive facial and flexural areas",
+                "instructions": "Apply twice daily as prescribed.",
+                "precautions": "May cause a mild burning or warm sensation for the first few days."
+            },
+            {
+                "name": "Diphenhydramine or Cetirizine",
+                "type": "OTC",
+                "purpose": "Oral antihistamine to suppress nighttime itching and enable restful sleep",
+                "instructions": "Take 1 dose 30-60 minutes before bedtime.",
+                "precautions": "First-generation antihistamines (diphenhydramine) cause sedation."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "The 'Soak and Seal' Moisturizing Method",
+                "description": "Take a 5-10 minute lukewarm shower, gently pat skin partially dry, and slather on a thick ceramide-rich ointment or cream within 3 minutes.",
+                "benefit": "Locks moisture directly into the stratum corneum before it evaporates."
+            },
+            {
+                "name": "Colloidal Oatmeal Baths",
+                "description": "Add 1 cup of finely ground colloidal oatmeal to lukewarm bathwater and soak for 15 minutes.",
+                "benefit": "Avenanthramides in oatmeal exert potent anti-inflammatory and antipruritic soothing effects."
+            },
+            {
+                "name": "Virgin Cold-Pressed Coconut Oil",
+                "description": "Gently massage pure virgin coconut oil onto damp dry patches twice daily.",
+                "benefit": "Provides natural lauric acid with antimicrobial properties against Staphylococcus aureus colonisation."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Anti-inflammatory foods rich in Omega-3 (wild salmon, flaxseeds, chia seeds)", "Quercetin-rich foods (apples, blueberries, kale)", "Probiotics (kefir, yogurt) to support gut-skin immune axis", "Ample water intake"],
+            "avoid": ["Identified food triggers (common: cow's milk, eggs, gluten, soy in sensitive individuals)", "Refined sugars and processed junk food", "Excessive spicy seasonings that promote skin flushing"]
+        },
+        "lifestyle_tips": [
+            "Wear loose-fitting, soft 100% cotton clothing; avoid coarse wool and rough synthetics.",
+            "Keep fingernails trimmed short and filed smooth to minimize skin trauma during subconscious sleep scratching.",
+            "Use fragrance-free, hypoallergenic liquid laundry detergents and mild soap-free body cleansers."
+        ],
+        "diagnostic_tests": ["Clinical skin inspection", "Patch testing for contact allergies", "Skin biopsy (rare, only to exclude cutaneous lymphoma or psoriasis)"],
+        "emergency_red_flags": [
+            "Skin develops honey-colored crusts, oozing yellow pus, or red streaks (Secondary Bacterial Impetigo)",
+            "Sudden outbreak of painful blisters accompanied by fever (Eczema Herpeticum - EMERGENCY)",
+            "Severe widespread erythroderma covering over 90% of body surface area"
+        ]
+    },
+    {
+        "id": "allergic-rhinitis",
+        "name": "Allergic Rhinitis (Hay Fever)",
+        "category": "Respiratory",
+        "severity": "Mild",
+        "urgency_level": "Self-care",
+        "specialist": "Allergist / ENT Specialist",
+        "overview": "An allergic immune response in the nasal passages triggered by airborne environmental allergens.",
+        "detailed_explanation": "Allergic rhinitis occurs when an individual's IgE antibodies mistakenly identify harmless airborne particles (pollen, dust mites, molds) as dangerous invaders. Cross-linking of IgE on mast cells triggers massive histamine, leukotriene, and prostaglandin degranulation, causing watery rhinorrhea, itching, and sneezing fits.",
+        "primary_symptoms": ["frequent_sneezing", "clear_runny_nose", "nasal_itching", "itchy_watery_eyes"],
+        "secondary_symptoms": ["nasal_congestion", "postnasal_drip", "fatigue", "dark_circles_under_eyes", "itchy_throat_or_ears"],
+        "causes_and_triggers": [
+            "Seasonal tree, grass, and weed pollens",
+            "Indoor perennial allergens: dust mites, cockroach droppings, cat/dog saliva and dander",
+            "Airborne mold spores in damp basements or bathrooms"
+        ],
+        "medicines": [
+            {
+                "name": "Fluticasone Propionate Nasal Spray",
+                "type": "OTC",
+                "purpose": "First-line intranasal corticosteroid that blocks multiple inflammatory cytokines",
+                "instructions": "1-2 sprays in each nostril once daily. Point nozzle slightly outward away from nasal septum.",
+                "precautions": "Takes 2-4 days of daily use for full therapeutic efficacy; not an instant fix."
+            },
+            {
+                "name": "Fexofenadine / Levocetirizine",
+                "type": "OTC",
+                "purpose": "Non-drowsy second-generation oral antihistamine to stop itching and sneezing",
+                "instructions": "Fexofenadine 120-180 mg once daily with a glass of water.",
+                "precautions": "Do not take fexofenadine with grapefruit or apple juice as it decreases absorption."
+            },
+            {
+                "name": "Olopatadine Eye Drops",
+                "type": "Prescription / OTC",
+                "purpose": "Dual-action antihistamine and mast cell stabilizer for red, itchy allergic eyes",
+                "instructions": "1 drop in each affected eye once or twice daily.",
+                "precautions": "Remove contact lenses prior to application."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Neti Pot Nasal Saline Irrigation",
+                "description": "Rinse each nasal passage with distilled or boiled-and-cooled isotonic saline using a Neti pot.",
+                "benefit": "Physically flushes trapped pollen grains, particulate allergens, and inflammatory mucus out of the nasal cavity."
+            },
+            {
+                "name": "HEPA Air Filtration & Bedroom Sanctuary",
+                "description": "Run a true HEPA air filter in the bedroom 24/7 with closed windows.",
+                "benefit": "Reduces airborne allergen concentration by up to 99% during sleep."
+            },
+            {
+                "name": "Post-Outdoors Shower & Wardrobe Change",
+                "description": "Shower immediately and wash hair after returning home during high pollen count days.",
+                "benefit": "Prevents transfer of outdoor pollens onto pillows, bedding, and furniture."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Quercetin-rich foods (red onions, capers, berries) acting as natural mast-cell stabilizers", "Turmeric and ginger warm teas", "Vitamin C rich citrus, kiwis, and bell peppers", "Omega-3 rich foods"],
+            "avoid": ["Cross-reactive fruits causing Oral Allergy Syndrome (e.g. raw apples/peaches during birch pollen season)", "Excessive alcohol which triggers histamine release and nasal vasodilation"]
+        },
+        "lifestyle_tips": [
+            "Check daily pollen forecasts; keep house and car windows closed during peak pollen hours (5 AM - 10 AM).",
+            "Wear wraparound sunglasses outdoors to shield conjunctiva from pollen contact.",
+            "Wash bed sheets and pillowcases weekly in hot water (at least 130°F / 54°C) to kill dust mites."
+        ],
+        "diagnostic_tests": ["Skin Prick Allergy Testing (SPT)", "Serum Specific IgE Blood Test (ImmunoCAP)"],
+        "emergency_red_flags": [
+            "Sudden swelling of the tongue, lips, throat or airway (Anaphylaxis - EMERGENCY)",
+            "Audible wheezing or severe difficulty drawing breath",
+            "Development of severe facial sinus pain with high fever (acute secondary bacterial sinusitis)"
+        ]
+    },
+    {
+        "id": "typhoid-fever",
+        "name": "Typhoid Fever (Enteric Fever)",
+        "category": "Infectious",
+        "severity": "High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Infectious Disease Specialist / General Physician",
+        "overview": "A systemic bacterial infection caused by Salmonella Typhi, characterized by prolonged high 'step-ladder' fever and abdominal symptoms.",
+        "detailed_explanation": "Salmonella enterica serovar Typhi colonizes the human intestinal mucosa, penetrates Peyer's patches, and spreads via the reticuloendothelial system into bloodstream, liver, spleen, and gallbladder. Without antibiotic therapy, it causes severe complications such as intestinal perforation, encephalitis, and septic shock.",
+        "primary_symptoms": ["step_ladder_prolonged_fever", "severe_weakness_and_fatigue", "abdominal_pain", "headache"],
+        "secondary_symptoms": ["rose_colored_spots_on_chest", "constipation_or_pea_soup_diarrhea", "dry_cough", "loss_of_appetite", "coated_white_tongue"],
+        "causes_and_triggers": [
+            "Ingestion of food or water contaminated with feces or urine of infected individuals or chronic carriers",
+            "Street food prepared with untreated water or unhygienic ice",
+            "Lack of clean hand hygiene before dining"
+        ],
+        "medicines": [
+            {
+                "name": "Ceftriaxone or Azithromycin",
+                "type": "Prescription",
+                "purpose": "Definitive antibiotic therapy to eradicate systemic Salmonella Typhi bacteria",
+                "instructions": "Ceftriaxone IV in hospital or oral Azithromycin 500-1000mg daily for 7-14 days as directed by doctor.",
+                "precautions": "Must complete the full antibiotic course even after fever breaks to prevent chronic carrier state."
+            },
+            {
+                "name": "Paracetamol",
+                "type": "OTC",
+                "purpose": "Antipyretic to manage high fever",
+                "instructions": "650 mg every 6 hours as needed for high temperature.",
+                "precautions": "Avoid NSAIDs (Ibuprofen) due to risk of gastrointestinal irritation and bleeding."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Boiled & Filtered Water Only",
+                "description": "Boil all drinking water vigorously for at least 1 minute before cooling and drinking.",
+                "benefit": "Destroys water-borne pathogens and prevents re-infection."
+            },
+            {
+                "name": "Cold Water Forehead Compresses",
+                "description": "Place cool damp cloth compresses on the forehead, neck, and wrists during high-temperature surges.",
+                "benefit": "Safely reduces core thermal stress during the prolonged step-ladder fever stages."
+            },
+            {
+                "name": "Continuous Oral Hydration Therapy",
+                "description": "Drink 3 liters of fluid daily: ORS, barley water, thin strained rice gruel, and coconut water.",
+                "benefit": "Combats severe dehydration and supports vital renal excretion."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["High-calorie soft bland diet: khichdi, thin dal, mashed boiled potatoes", "Custard, soft curd (yogurt), and fruit juices without pulp", "Ripe bananas, applesauce, and white bread", "Plenty of light broths"],
+            "avoid": ["High-fiber coarse vegetables and raw salads that irritate inflamed Peyer's patches", "Spicy curries, fried snacks, and strong seasonings", "Gas-forming foods: cabbage, cauliflower, beans, carbonated drinks"]
+        },
+        "lifestyle_tips": [
+            "Strict isolation and hand hygiene with antibacterial soap after every restroom visit.",
+            "Ensure complete physical bed rest for at least 2 full weeks.",
+            "Get the Typhoid conjugate vaccine (TCV) before traveling to endemic areas."
+        ],
+        "diagnostic_tests": ["Blood Culture (Gold standard in 1st week)", "Widal Test (after day 7-10)", "TyphiDot IgM / IgG Rapid Test", "Stool / Urine Culture"],
+        "emergency_red_flags": [
+            "Sudden severe agonizing abdominal pain and board-like rigidity (Intestinal Perforation)",
+            "Vomiting blood or dark black tarry stools (Severe GI hemorrhage)",
+            "Altered mental status, stupor, delirium ('Typhoid state')",
+            "Persistent hypothermia or rapid drop in blood pressure"
+        ]
+    },
+    {
+        "id": "osteoarthritis",
+        "name": "Osteoarthritis",
+        "category": "Musculoskeletal",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Orthopedic Surgeon / Rheumatologist",
+        "overview": "A degenerative joint disease where the protective cartilage that cushions the ends of bones wears down over time.",
+        "detailed_explanation": "Osteoarthritis is a whole-joint disorder involving cartilage degradation, subchondral bone remodeling, osteophyte (bone spur) formation, and synovial inflammation. Most commonly affecting weight-bearing joints (knees, hips, lumbar spine) and hands, it results in pain on activity and morning stiffness lasting less than 30 minutes.",
+        "primary_symptoms": ["joint_pain_with_movement", "joint_stiffness", "joint_swelling", "crepitus_grating_sound"],
+        "secondary_symptoms": ["loss_of_joint_flexibility", "bone_spurs_palpable_lumps", "tenderness_around_joint", "muscle_weakness_around_joint"],
+        "causes_and_triggers": [
+            "Age-related natural cartilage wear and tear",
+            "Joint overuse, repetitive occupational stress, or previous traumatic joint injury",
+            "Obesity increasing mechanical loads on knee and hip joints",
+            "Genetics and joint misalignment"
+        ],
+        "medicines": [
+            {
+                "name": "Topical Diclofenac Gel (Voltaren)",
+                "type": "OTC",
+                "purpose": "Local NSAID that penetrates joint capsules to relieve pain without systemic gastric side effects",
+                "instructions": "Apply 2-4 grams to affected joint 3 to 4 times daily and massage gently.",
+                "precautions": "Wash hands after applying; do not apply to broken or cut skin."
+            },
+            {
+                "name": "Acetaminophen (Paracetamol)",
+                "type": "OTC",
+                "purpose": "Mild analgesic for baseline mild-to-moderate joint ache",
+                "instructions": "650-1000 mg every 6-8 hours with food.",
+                "precautions": "Do not exceed recommended daily threshold."
+            },
+            {
+                "name": "Celecoxib (COX-2 Inhibitor)",
+                "type": "Prescription",
+                "purpose": "Targeted oral anti-inflammatory with reduced gastric ulcer risk",
+                "instructions": "100-200 mg orally once daily with food.",
+                "precautions": "Caution in patients with underlying cardiovascular risks."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Low-Impact Aerobic Exercise (Swimming / Water Aerobics)",
+                "description": "Engage in 30 minutes of swimming or stationary recumbent biking 3 times weekly.",
+                "benefit": "Strengthens quadriceps and stabilizing muscles without subjecting knee joints to gravitational impact."
+            },
+            {
+                "name": "Alternating Warm and Cold Therapy",
+                "description": "Apply a warm compress before exercise to loosen stiff joints; apply cold ice pack for 15 minutes after activity.",
+                "benefit": "Heat improves synovial fluid circulation; cold diminishes post-activity inflammatory flare-ups."
+            },
+            {
+                "name": "Knee Bracing and Supportive Orthotics",
+                "description": "Use an unloader knee brace or cushioned arch-support shoe inserts.",
+                "benefit": "Redistributes biomechanical weight loads away from damaged cartilage compartments."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Fatty cold-water fish rich in Omega-3 (salmon, mackerel, sardines)", "Turmeric with black pepper (curcumin has demonstrated anti-inflammatory joint benefits)", "Glucosamine and chondroitin-rich bone broths", "Berries and citrus fruits"],
+            "avoid": ["Refined sugars and corn syrup that promote systemic cytokine inflammation", "Processed red meats and high-saturated fats", "Excessive salt which causes fluid retention"]
+        },
+        "lifestyle_tips": [
+            "Target a 5-10% body weight reduction: every 1 pound of weight lost takes 4 pounds of pressure off your knees!",
+            "Avoid deep squats, heavy lunges, or prolonged sitting on low stools.",
+            "Use a cane or walking stick held in the hand opposite the painful joint to offload up to 30% of force."
+        ],
+        "diagnostic_tests": ["Weight-bearing Joint X-Rays (showing joint space narrowing, subchondral sclerosis, osteophytes)", "Magnetic Resonance Imaging (MRI)", "Synovial Fluid Analysis"],
+        "emergency_red_flags": [
+            "Joint suddenly becomes hot, brightly red, and excruciatingly swollen (ruling out Septic Arthritis)",
+            "Complete inability to bear any weight on the leg after minimal strain",
+            "Numbness or tingling shooting down the leg (Spinal nerve compression)"
+        ]
+    },
+    {
+        "id": "kidney-stones",
+        "name": "Kidney Stones (Nephrolithiasis)",
+        "category": "Urinary",
+        "severity": "Moderate to High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Urologist / Nephrologist",
+        "overview": "Hard mineral and salt deposits that form inside the kidneys and cause excruciating colicky flank pain when traveling down the ureter.",
+        "detailed_explanation": "Kidney stones crystallize when urinary solute concentration exceeds solubility limits (super-saturation). The most common types are Calcium Oxalate (80%), Uric Acid, Struvite, and Cystine. When a stone dislodges and lodges in the narrow ureter, it causes proximal hydroureteronephrosis and intense paroxysmal renal colic.",
+        "primary_symptoms": ["severe_sharp_flank_pain", "pain_radiating_to_groin", "blood_in_urine", "painful_burning_urination"],
+        "secondary_symptoms": ["nausea_and_vomiting", "frequent_need_to_urinate", "cloudy_or_foul_smelling_urine", "restlessness_inability_to_find_comfortable_position", "fever_and_chills_if_infected"],
+        "causes_and_triggers": [
+            "Chronic low fluid intake and chronic dehydration",
+            "Diets high in sodium, animal purines, or high-oxalate foods (spinach, nuts, chocolate)",
+            "Hypercalciuria, hyperparathyroidism, or gout",
+            "Genetic metabolic predisposition"
+        ],
+        "medicines": [
+            {
+                "name": "Ketorolac / Ibuprofen (NSAIDs)",
+                "type": "Prescription / OTC",
+                "purpose": "Primary analgesic that reduces ureteral smooth muscle inflammation and spasm",
+                "instructions": "Administered under medical supervision for acute renal colic.",
+                "precautions": "Ensure renal function is monitored; avoid in acute kidney injury."
+            },
+            {
+                "name": "Tamsulosin (Alpha-1 Blocker)",
+                "type": "Prescription",
+                "purpose": "Relaxes the smooth muscles of the distal ureter to facilitate spontaneous stone passage",
+                "instructions": "0.4 mg orally once daily after the same meal each day.",
+                "precautions": "May cause orthostatic dizziness or retrograde ejaculation."
+            },
+            {
+                "name": "Potassium Citrate",
+                "type": "Prescription",
+                "purpose": "Alkalinizes urine to dissolve and prevent uric acid and calcium oxalate crystals",
+                "instructions": "As prescribed based on 24-hour urine collection results.",
+                "precautions": "Monitor serum potassium levels."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Aggressive Water Hydration (Water Flushes)",
+                "description": "Drink 2.5 to 3 liters of water evenly throughout the day and night.",
+                "benefit": "Creates strong urinary hydrostatic pressure to propel small stones (<5mm) down the ureter."
+            },
+            {
+                "name": "Fresh Lemon Water Daily",
+                "description": "Squeeze the juice of two fresh lemons into a liter of drinking water.",
+                "benefit": "Natural dietary citrate binds to urinary calcium, preventing crystal aggregation and growth."
+            },
+            {
+                "name": "Urine Straining & Collection",
+                "description": "Urinate through a fine mesh stone strainer into a clean cup.",
+                "benefit": "Captures passed stone fragments for laboratory composition analysis."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Plenty of pure water and lemon/lime water", "Normal healthy dietary calcium (milk, yogurt) which binds oxalate in gut", "Fresh fruits and vegetables rich in potassium and magnesium"],
+            "avoid": ["Excessive animal protein (red meats, organ meats) which increases uric acid", "High-oxalate foods: spinach, beets, rhubarb, almonds, chocolate", "Excessive sodium and salty snacks that force calcium into urine"]
+        },
+        "lifestyle_tips": [
+            "Never wait until you are thirsty to drink water; urine should always look pale straw or crystal clear.",
+            "Stay active; gentle walking can assist gravitational descent of stones through the ureters."
+        ],
+        "diagnostic_tests": ["Non-Contrast Helical Abdominal CT Scan (Gold Standard)", "Renal Ultrasound (KUB)", "Urinalysis (Microscopic Hematuria)", "24-Hour Urine Metabolic Profile"],
+        "emergency_red_flags": [
+            "Fever and shaking chills accompanying flank pain (Obstructed infected kidney - UROLOGICAL EMERGENCY)",
+            "Complete anuria (inability to pass any urine for hours)",
+            "Intractable vomiting preventing any fluid retention",
+            "Unbearable pain unresponsive to heavy analgesics"
+        ]
+    },
+    {
+        "id": "peptic-ulcer",
+        "name": "Peptic Ulcer Disease",
+        "category": "Gastrointestinal",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Gastroenterologist",
+        "overview": "Sores or breaks that develop on the inside lining of your stomach (gastric ulcer) or the upper portion of your small intestine (duodenal ulcer).",
+        "detailed_explanation": "Peptic ulcers arise from an imbalance between aggressive digestive forces (gastric acid, pepsin) and protective mucosal defense mechanisms (mucus layer, bicarbonate, prostaglandins). The vast majority are triggered by Helicobacter pylori bacterial infection or habitual use of non-steroidal anti-inflammatory drugs (NSAIDs).",
+        "primary_symptoms": ["burning_stomach_pain", "pain_worse_on_empty_stomach", "bloating", "heartburn"],
+        "secondary_symptoms": ["nausea", "feeling_uncomfortably_full", "intolerance_to_fatty_foods", "burping", "mild_weight_loss"],
+        "causes_and_triggers": [
+            "Infection with Helicobacter pylori bacteria",
+            "Frequent, regular use of NSAIDs (Ibuprofen, Naproxen, Aspirin, Diclofenac)",
+            "Cigarette smoking and excessive alcohol consumption",
+            "Severe physiological stress"
+        ],
+        "medicines": [
+            {
+                "name": "H. Pylori Eradication Triple/Quadruple Therapy (Clarithromycin + Amoxicillin + PPI)",
+                "type": "Prescription",
+                "purpose": "Eradicates underlying bacterial infection and stops acid production to heal ulcer crater",
+                "instructions": "Strict 14-day protocol prescribed by gastroenterologist.",
+                "precautions": "Take every single dose exactly on time to prevent bacterial antibiotic resistance."
+            },
+            {
+                "name": "Pantoprazole / Esomeprazole",
+                "type": "Prescription",
+                "purpose": "Suppresses gastric acid pumps to allow mucosal regeneration",
+                "instructions": "40 mg once daily 30 minutes before breakfast for 4-8 weeks.",
+                "precautions": "Do not abruptly stop without consulting your doctor."
+            },
+            {
+                "name": "Sucralfate Suspension",
+                "type": "Prescription",
+                "purpose": "Forms a protective chemical barrier over the ulcer crater protecting it from acid and pepsin",
+                "instructions": "1 gram suspension 4 times daily on an empty stomach (1 hour before meals and at bedtime).",
+                "precautions": "Space 2 hours apart from other medications as it binds them."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Cabbage Juice Protocol",
+                "description": "Drink 100-150 ml of freshly extracted raw green cabbage juice daily.",
+                "benefit": "Rich in S-methylmethionine (Vitamin U) and glutamine that accelerates gastric epithelial repair."
+            },
+            {
+                "name": "Deglycyrrhizinated Licorice (DGL)",
+                "description": "Chew 1-2 DGL tablets 20 minutes before meals.",
+                "benefit": "Stimulates natural stomach mucus production without raising blood pressure."
+            },
+            {
+                "name": "Probiotic Rich Foods (Kefir / Plain Curd)",
+                "description": "Consume 1 bowl of fresh unsweetened yogurt or probiotic kefir daily.",
+                "benefit": "Suppresses H. pylori colonization and reduces antibiotic-associated diarrhea."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Bland cooked oats, rice, and steamed sweet potatoes", "Lean chicken, white fish, and soft boiled eggs", "Apples, pears, and bananas", "Non-acidic vegetable broths and herbal teas"],
+            "avoid": ["NSAIDs (Aspirin, Ibuprofen, Diclofenac) - STRICTLY AVOID", "Black pepper, red chili powder, and harsh spices", "Coffee, caffeinated drinks, and alcohol", "Fried greasy meats and sour tomato sauces"]
+        },
+        "lifestyle_tips": [
+            "Eat small, evenly spaced meals throughout the day so your stomach is never completely empty for prolonged hours.",
+            "Stop smoking immediately, as nicotine significantly impairs stomach blood flow and mucosal healing.",
+            "Manage stress levels with relaxation techniques."
+        ],
+        "diagnostic_tests": ["Upper Gastrointestinal Endoscopy (Esophagogastroduodenoscopy - EGD)", "Urea Breath Test (UBT) for H. pylori", "Stool Antigen Test for H. pylori"],
+        "emergency_red_flags": [
+            "Vomiting bright red blood or dark digested blood that looks like coffee grounds (Hematemesis)",
+            "Passing foul-smelling, jet-black, sticky tarry stools (Melena)",
+            "Sudden, sharp, agonizing abdominal pain that spreads rapidly across the whole stomach (Ulcer Perforation)",
+            "Feeling faint, dizzy, or passing out (Hypovolemic shock from internal hemorrhage)"
+        ]
+    },
+    {
+        "id": "sinusitis",
+        "name": "Acute & Chronic Sinusitis (Rhinosinusitis)",
+        "category": "Respiratory",
+        "severity": "Mild to Moderate",
+        "urgency_level": "Self-care",
+        "specialist": "ENT Specialist / General Physician",
+        "overview": "Inflammation or swelling of the tissue lining the paranasal sinuses, blocking mucus drainage and leading to facial pressure.",
+        "detailed_explanation": "Paranasal sinuses are air-filled spaces in the facial bones. When the ostia (drainage pathways) become occluded by mucosal edema from a cold or allergies, mucus accumulates. Bacteria (Streptococcus pneumoniae, Haemophilus influenzae) or viruses proliferate in the trapped secretions, causing pressure over the cheeks, forehead, or between the eyes.",
+        "primary_symptoms": ["facial_pain_and_pressure", "thick_yellow_or_green_nasal_discharge", "nasal_congestion", "headache_worse_bending_forward"],
+        "secondary_symptoms": ["postnasal_drip", "reduced_sense_of_smell", "toothache_in_upper_jaw", "bad_breath", "ear_fullness"],
+        "causes_and_triggers": [
+            "Prolonged viral upper respiratory infection (common cold)",
+            "Allergic rhinitis causing mucosal swelling",
+            "Deviated nasal septum or nasal polyps blocking ostia",
+            "Swimming in chlorinated or polluted water"
+        ],
+        "medicines": [
+            {
+                "name": "Mometasone or Fluticasone Nasal Spray",
+                "type": "OTC / Prescription",
+                "purpose": "Corticosteroid spray to shrink swollen sinus ostial mucosa and promote natural drainage",
+                "instructions": "2 sprays in each nostril once daily.",
+                "precautions": "Do not blow nose aggressively immediately after spraying."
+            },
+            {
+                "name": "Amoxicillin-Clavulanate (Augmentin)",
+                "type": "Prescription",
+                "purpose": "Antibiotic reserved strictly for bacterial sinusitis (symptoms lasting >10 days without improvement or 'double sickening')",
+                "instructions": "Taken as prescribed for 7-10 days.",
+                "precautions": "Take with meals to prevent gastrointestinal upset."
+            },
+            {
+                "name": "Acetaminophen or Ibuprofen",
+                "type": "OTC",
+                "purpose": "Relieves throbbing facial sinus pressure and forehead headache",
+                "instructions": "As directed on package.",
+                "precautions": "Avoid overuse."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Hypertonic Saline Nasal Irrigation",
+                "description": "Irrigate nasal passages with warm hypertonic saline 2-3 times daily using a sinus rinse squeeze bottle.",
+                "benefit": "Physically thins and draws out stagnant tenacious mucopurulent secretions."
+            },
+            {
+                "name": "Warm Facial Compress",
+                "description": "Place a warm, moist towel across your forehead, cheeks, and eyes for 10 minutes 3 times a day.",
+                "benefit": "Increases local circulation, eases localized pain, and encourages sinus ostial opening."
+            },
+            {
+                "name": "Menthol / Eucalyptus Steam Inhalation",
+                "description": "Inhale steam over a basin of hot water with 2 drops of eucalyptus essential oil.",
+                "benefit": "Promotes ciliary beat frequency and eases airway congestion."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Warm spicy soups with garlic, ginger, and turmeric (natural decongestants)", "Pineapple (contains bromelain, an enzyme that reduces sinus swelling)", "Hot herbal teas (peppermint, chamomile)", "Copious amounts of warm water"],
+            "avoid": ["Chilled and iced drinks", "Excessive dairy products if they make mucus feel unpleasantly viscous", "Alcohol which dehydrates and swells nasal membranes"]
+        },
+        "lifestyle_tips": [
+            "Sleep with your head elevated on two pillows to facilitate nighttime sinus drainage.",
+            "Use a cool-mist room humidifier next to your bed.",
+            "Avoid rapid air pressure changes (flying or scuba diving) during acute flare-ups."
+        ],
+        "diagnostic_tests": ["Nasal Endoscopy", "CT Scan of Paranasal Sinuses (PNS)", "Sinus aspirate culture (in refractory chronic cases)"],
+        "emergency_red_flags": [
+            "Swelling, redness, or drooping around one or both eyes (Orbital Cellulitis)",
+            "Double vision or sudden reduction in visual acuity",
+            "Severe stiff neck, high fever, and extreme lethargy (Meningitis complication)",
+            "Forehead soft-tissue swelling (Pott's puffy tumor)"
+        ]
+    },
+    {
+        "id": "malaria",
+        "name": "Malaria",
+        "category": "Infectious",
+        "severity": "High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Infectious Disease Specialist / Tropical Medicine",
+        "overview": "A life-threatening disease caused by Plasmodium parasites transmitted to people through the bites of infected female Anopheles mosquitoes.",
+        "detailed_explanation": "Plasmodium falciparum, vivax, ovale, and malariae invade hepatocyte liver cells before entering erythrocytes (red blood cells). The synchronized cyclical rupture of infected red blood cells releases merozoites, hemozoin, and pyrogens into the bloodstream, triggering classic paroxysmal cycles of violent shivering chills (cold stage), blazing fever (hot stage), and profuse sweating (sweating stage).",
+        "primary_symptoms": ["cyclical_high_fever", "shivering_chills", "profuse_sweating", "severe_headache"],
+        "secondary_symptoms": ["severe_joint_and_bone_pain", "nausea_and_vomiting", "fatigue", "jaundice_yellow_eyes", "enlarged_spleen"],
+        "causes_and_triggers": [
+            "Bite of an infective female Anopheles mosquito (bites predominantly between dusk and dawn)",
+            "Plasmodium falciparum infection (most lethal form)",
+            "Travel to tropical endemic regions without prophylaxis"
+        ],
+        "medicines": [
+            {
+                "name": "Artemether-Lumefantrine (Artemisinin Combination Therapy - ACT)",
+                "type": "Prescription",
+                "purpose": "First-line rapid-acting parasiticidal agent against Plasmodium blood stages",
+                "instructions": "6-dose regimen over 3 days as strictly prescribed by physician.",
+                "precautions": "Take with high-fat meals or milk to guarantee optimal lumefantrine intestinal absorption."
+            },
+            {
+                "name": "Primaquine",
+                "type": "Prescription",
+                "purpose": "Eliminates dormant liver hypnozoites in Plasmodium vivax and ovale to prevent future relapses",
+                "instructions": "Daily for 14 days under physician orders.",
+                "precautions": "Mandatory G6PD deficiency test before administration to prevent severe hemolytic anemia."
+            },
+            {
+                "name": "Paracetamol",
+                "type": "OTC",
+                "purpose": "Reduces high fever during paroxysms",
+                "instructions": "500-650 mg every 6 hours.",
+                "precautions": "Keep hydrated; avoid aspirin."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Lukewarm Sponge Baths During Hot Stage",
+                "description": "Wipe arms, legs, and forehead with lukewarm water towels when body temperature peaks.",
+                "benefit": "Aids evaporative heat loss without provoking shivering."
+            },
+            {
+                "name": "Warm Blanketing During Cold Rigor Stage",
+                "description": "Wrap in multiple dry warm blankets during the shivering stage; remove them once the hot fever stage sets in.",
+                "benefit": "Provides comfort and reduces metabolic shivering exhaustion."
+            },
+            {
+                "name": "Electrolyte Fluid Replacement",
+                "description": "Drink ORS and coconut water continuously to replace massive fluid loss from profuse drenching sweats.",
+                "benefit": "Prevents severe hypovolemic dehydration and electrolyte imbalances."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["High-energy easily digestible foods: boiled rice, porridge, mashed vegetables", "Fresh citrus fruits (oranges, limes) rich in Vitamin C", "Tender coconut water, clear chicken or vegetable soups", "Steamed apples and bananas"],
+            "avoid": ["Heavy, oily, deep-fried foods that exacerbate nausea", "Spicy seasonings that irritate the gastrointestinal tract", "Cold iced sodas and unpasteurized juices"]
+        },
+        "lifestyle_tips": [
+            "Sleep strictly under long-lasting insecticide-treated mosquito nets (LLINs).",
+            "Apply DEET or Icaridin insect repellent on exposed skin from sunset until sunrise.",
+            "Take prescribed chemoprophylaxis tablets (Doxycycline or Atovaquone-Proguanil) before and during travel to endemic zones."
+        ],
+        "diagnostic_tests": ["Peripheral Blood Smear (Thick and Thin smear microscopy with Giemsa stain)", "Malaria Rapid Diagnostic Test (RDT for Pf-HRP2 and Pan-pLDH)", "Complete Blood Count (showing anemia and thrombocytopenia)"],
+        "emergency_red_flags": [
+            "Confusion, seizures, or coma (Cerebral Malaria - IMMEDIATE ICU EMERGENCY)",
+            "Severe respiratory distress or deep acidotic breathing (ARDS)",
+            "Passing very dark black or brown urine (Blackwater Fever - acute hemoglobinuria)",
+            "Severe jaundice with yellow eyes and skin"
+        ]
+    },
+    {
+        "id": "hypothyroidism",
+        "name": "Hypothyroidism (Underactive Thyroid)",
+        "category": "Endocrine",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Endocrinologist",
+        "overview": "A condition in which the thyroid gland produces insufficient thyroid hormones, slowing down the body's overall metabolism.",
+        "detailed_explanation": "Hypothyroidism is most commonly caused by Hashimoto's thyroiditis (an autoimmune destruction of the thyroid gland) or iodine deficiency. As free thyroxine (T4) and triiodothyronine (T3) levels decline, the pituitary releases higher Thyroid Stimulating Hormone (TSH). The systemic metabolic rate decelerates across cardiovascular, neurological, and metabolic systems.",
+        "primary_symptoms": ["chronic_fatigue", "unexplained_weight_gain", "cold_intolerance", "dry_skin_and_hair_loss"],
+        "secondary_symptoms": ["constipation", "muscle_weakness_and_aches", "puffy_face", "slowed_heart_rate", "memory_fog_and_depression"],
+        "causes_and_triggers": [
+            "Hashimoto's Autoimmune Thyroiditis",
+            "Surgical thyroidectomy or radioactive iodine therapy",
+            "Dietary iodine deficiency or excessive lithium/amiodarone medication",
+            "Pituitary gland disorders"
+        ],
+        "medicines": [
+            {
+                "name": "Levothyroxine Sodium (Synthetic T4)",
+                "type": "Prescription",
+                "purpose": "Bioidentical daily replacement of missing thyroid hormone to normalize basal metabolic rate",
+                "instructions": "Take once daily in the morning on an empty stomach with a full glass of water, at least 30-60 minutes before breakfast.",
+                "precautions": "Do not take iron, calcium, or antacid supplements within 4 hours of Levothyroxine as they prevent absorption."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Iodized Salt & Selenium Nutrition",
+                "description": "Ensure use of standard iodized table salt and eat 2 Brazil nuts daily (rich in selenium).",
+                "benefit": "Selenium is an essential co-factor for deiodinase enzymes that convert T4 to active T3."
+            },
+            {
+                "name": "Moderate Strength Training & Walking",
+                "description": "Engage in 20-30 minutes of resistance training or brisk walking 4 times weekly.",
+                "benefit": "Stimulates lean muscle mass retention and counteracts sluggish basal metabolic rate."
+            },
+            {
+                "name": "Warm Hydrotherapy & Layered Dressing",
+                "description": "Wear thermal insulating layers and take warm showers.",
+                "benefit": "Mitigates uncomfortable shivering and poor peripheral vasomotor constriction."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Iodized salt, seafood, and saltwater fish (cod, tuna)", "Brazil nuts, sunflower seeds, and eggs for selenium and zinc", "High-fiber vegetables and beans to overcome slow bowel motility", "Plenty of water to support hydration and skin barrier"],
+            "avoid": ["Excessive raw goitrogenic cruciferous vegetables (raw cabbage, broccoli, kale in extreme amounts)", "Soy products within 2 hours of taking thyroid medication", "Excessive processed gluten in autoimmune Hashimoto's sufferers"]
+        },
+        "lifestyle_tips": [
+            "Test serum TSH and Free T4 levels every 6 to 12 weeks during dose titration, and annually thereafter.",
+            "Establish consistent morning medication routine without skipping doses.",
+            "Ensure 7-8 hours of sound sleep."
+        ],
+        "diagnostic_tests": ["Serum Thyroid Stimulating Hormone (TSH) - elevated in primary hypothyroidism", "Free Thyroxine (FT4) - low or normal-low", "Anti-Thyroid Peroxidase Antibodies (Anti-TPO) to verify Hashimoto's"],
+        "emergency_red_flags": [
+            "Myxedema Coma: severe hypothermia, profound lethargy, bradycardia, confusion (Life-threatening emergency)",
+            "Marked swelling of the tongue and vocal cords causing airway restriction",
+            "Severe fluid retention around heart (Pericardial effusion)"
+        ]
+    },
+    {
+        "id": "gout",
+        "name": "Gout (Gouty Arthritis)",
+        "category": "Musculoskeletal",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Rheumatologist",
+        "overview": "A painful form of inflammatory arthritis caused by high levels of uric acid in the blood forming sharp urate crystals in joints.",
+        "detailed_explanation": "When serum uric acid exceeds its saturation threshold (hyperuricemia, typically >6.8 mg/dL), monosodium urate (MSU) needle-shaped microcrystals precipitate within the synovial fluid and joint tissues. This activates the NLRP3 inflammasome, triggering neutrophil infiltration and agonizing inflammatory flares, most famously in the first metatarsophalangeal joint (the big toe, known as podagra).",
+        "primary_symptoms": ["sudden_excruciating_big_toe_pain", "joint_redness_and_heat", "swollen_inflamed_joint", "pain_peaks_at_night"],
+        "secondary_symptoms": ["extreme_tenderness_even_to_bedsheets", "lingering_joint_discomfort", "limited_range_of_motion", "shiny_purplish_skin_over_joint"],
+        "causes_and_triggers": [
+            "High dietary purine consumption: red meat, organ meats, shellfish, beer",
+            "High-fructose corn syrup beverages and dehydration",
+            "Impaired renal uric acid excretion",
+            "Certain medications (thiazide diuretics, low-dose aspirin)"
+        ],
+        "medicines": [
+            {
+                "name": "Colchicine",
+                "type": "Prescription",
+                "purpose": "Interrupts microtubule assembly, preventing neutrophil migration and phagocytosis of urate crystals",
+                "instructions": "1.2 mg at first sign of flare, followed by 0.6 mg one hour later. Prescribed by doctor.",
+                "precautions": "Do not overdose; can cause severe diarrhea and abdominal cramps."
+            },
+            {
+                "name": "Indomethacin or Naproxen (NSAIDs)",
+                "type": "Prescription / OTC",
+                "purpose": "Powerful anti-inflammatory to quell severe joint swelling and pain",
+                "instructions": "Take with meals as prescribed.",
+                "precautions": "Take with gastroprotective agent if prone to gastritis."
+            },
+            {
+                "name": "Allopurinol / Febuxostat (Xanthine Oxidase Inhibitors)",
+                "type": "Prescription",
+                "purpose": "Long-term daily preventive medication that lowers serum uric acid synthesis",
+                "instructions": "Daily dose titrated to achieve serum uric acid <6.0 mg/dL.",
+                "precautions": "DO NOT start or adjust Allopurinol during an acute flare, as fluctuating uric acid levels worsen the flare!"
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Ice Pack Application",
+                "description": "Apply crushed ice wrapped in a damp towel to the inflamed joint for 20 minutes, 3-4 times daily.",
+                "benefit": "Numbs acute intense pain and suppresses local microvascular hyperemia."
+            },
+            {
+                "name": "Joint Elevation with Bed Cradle",
+                "description": "Elevate your foot on pillows higher than your heart level and tent your bedsheets so they don't press on the toe.",
+                "benefit": "Reduces inflammatory interstitial fluid pooling and prevents excruciating tactile contact."
+            },
+            {
+                "name": "Tart Cherry Juice Consumption",
+                "description": "Drink 8 ounces (240 ml) of 100% tart cherry juice daily.",
+                "benefit": "Contains anthocyanins that inhibit xanthine oxidase and help accelerate renal urate excretion."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Low-fat milk, yogurt, and cottage cheese (proteins that promote uric acid excretion)", "Cherries, blueberries, strawberries, and citrus fruits", "Coffee (demonstrated to lower uric acid levels in observational trials)", "3-4 liters of water daily to flush urate"],
+            "avoid": ["Beer and distilled spirits - ALCOHOL IS A MAJOR TRIGGER", "Organ meats (liver, kidneys, sweetbreads) and game meats", "Anchovies, sardines, mussels, scallops, and mackerel", "High-fructose corn syrup sodas and candies"]
+        },
+        "lifestyle_tips": [
+            "Maintain exceptional hydration; drink a large glass of water right before bedtime and upon waking.",
+            "Avoid crash diets and severe starvation fasting, which temporarily elevate serum uric acid levels.",
+            "Wear wide, comfortable footwear with roomy toe boxes."
+        ],
+        "diagnostic_tests": ["Arthrocentesis & Synovial Fluid Polarized Microscopy (showing negatively birefringent needle-shaped crystals)", "Serum Uric Acid level", "Dual-Energy CT (DECT) Scan"],
+        "emergency_red_flags": [
+            "Fever and chills accompanying a fiery red swollen joint (Must immediately exclude Septic Arthritis via joint tap)",
+            "Skin breakdown over a joint with chalky white drainage (Infected tophi)",
+            "Acute inability to pass urine or severe flank pain (Uric acid kidney stones)"
+        ]
+    },
+    {
+        "id": "bronchitis",
+        "name": "Acute Bronchitis",
+        "category": "Respiratory",
+        "severity": "Moderate",
+        "urgency_level": "Self-care",
+        "specialist": "Pulmonologist / General Physician",
+        "overview": "Inflammation of the lining of the bronchial tubes, which carry air to and from the lungs, usually caused by a viral infection.",
+        "detailed_explanation": "Acute bronchitis is predominantly viral in etiology (>90% caused by influenza, parainfluenza, RSV, or coronavirus). The bronchial mucosal lining swells and hyper-secretes mucus, triggering a persistent, racking cough that lasts 2 to 3 weeks even after viral clearance.",
+        "primary_symptoms": ["persistent_deep_cough", "clear_yellow_or_green_mucus", "chest_soreness_from_coughing", "mild_shortness_of_breath"],
+        "secondary_symptoms": ["low_grade_fever", "fatigue", "sore_throat", "chills", "wheezing_rattling_chest"],
+        "causes_and_triggers": [
+            "Recent viral upper respiratory infection (cold or flu spreading downward)",
+            "Inhaling environmental irritants, cigarette smoke, or chemical vapors",
+            "Gastroesophageal reflux disease micro-aspiration"
+        ],
+        "medicines": [
+            {
+                "name": "Guaifenesin (Mucolytic Expectorant)",
+                "type": "OTC",
+                "purpose": "Thins and liquefies bronchial mucus to make coughing more productive and less fatiguing",
+                "instructions": "200-400 mg every 4 hours with a large glass of water.",
+                "precautions": "Hydration is necessary for optimal expectorant efficacy."
+            },
+            {
+                "name": "Dextromethorphan (for Nighttime)",
+                "type": "OTC",
+                "purpose": "Calms spasms to permit restorative sleep when cough is severe and unproductive at night",
+                "instructions": "10-20 mg before sleep.",
+                "precautions": "Do not suppress a productive daytime cough which serves to clear pathogens."
+            },
+            {
+                "name": "Albuterol Inhaler (if wheezing)",
+                "type": "Prescription",
+                "purpose": "Relieves transient bronchospasm in patients with reactive airways",
+                "instructions": "2 puffs every 4-6 hours as prescribed.",
+                "precautions": "May cause transient tachycardia or hand tremor."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Warm Honey & Thyme Tea",
+                "description": "Steep 1 teaspoon of dried thyme in boiling water for 10 minutes, strain, add 2 teaspoons of honey.",
+                "benefit": "Thyme contains thymol with natural antispasmodic bronchial relaxing properties."
+            },
+            {
+                "name": "Steam Vaporizer with Peppermint",
+                "description": "Breathe warm humidified air in a steam tent for 15 minutes twice daily.",
+                "benefit": "Moistens mucosal membranes and reduces tracheobronchial hypersensitivity."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Warm herbal broths with garlic and turmeric", "Hot water with honey and lemon", "Antioxidant-rich berries and oranges"],
+            "avoid": ["Cold beverages and ice creams", "Dairy products if they increase mucus sensation", "Cigarette smoke and aerosol sprays"]
+        },
+        "lifestyle_tips": [
+            "Strictly avoid smoking and exposure to passive second-hand tobacco smoke.",
+            "Rest your voice and avoid speaking loudly in cold air.",
+            "Use an air purifier with a true HEPA filter in your sleeping area."
+        ],
+        "diagnostic_tests": ["Clinical auscultation (stethoscope exam)", "Chest X-ray (only if high fever or hypoxia suggests pneumonia)", "Spirometry"],
+        "emergency_red_flags": [
+            "Coughing up significant quantities of frank blood (Hemoptysis)",
+            "Fever above 101.5°F lasting more than 3-4 days",
+            "Severe breathlessness or resting oxygen saturation below 93%"
+        ]
+    },
+    {
+        "id": "strep-throat",
+        "name": "Streptococcal Pharyngitis (Strep Throat)",
+        "category": "Infectious",
+        "severity": "Moderate to High",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "ENT Specialist / General Physician",
+        "overview": "A bacterial throat infection caused by Group A Streptococcus that causes a severe, sudden sore throat without cough.",
+        "detailed_explanation": "Streptococcal pharyngitis is caused by Streptococcus pyogenes (Group A beta-hemolytic strep). It causes acute exudative inflammation of the palatine tonsils and posterior pharynx. Unlike viral sore throats, Strep throat typically lacks cough, rhinorrhea, or conjunctivitis, and requires antibiotic treatment to prevent rheumatic fever and post-streptococcal glomerulonephritis.",
+        "primary_symptoms": ["sudden_severe_sore_throat", "painful_swallowing", "white_patches_pus_on_tonsils", "high_fever"],
+        "secondary_symptoms": ["swollen_tender_neck_lymph_nodes", "headache", "red_spots_on_roof_of_mouth_petechiae", "loss_of_appetite", "nausea_in_children"],
+        "causes_and_triggers": [
+            "Infection with Streptococcus pyogenes bacteria",
+            "Direct respiratory droplet spread from coughing/sneezing",
+            "Sharing utensils, drinks, or kissing an infected person"
+        ],
+        "medicines": [
+            {
+                "name": "Amoxicillin or Penicillin V",
+                "type": "Prescription",
+                "purpose": "Antibiotic of choice to eradicate Streptococcus pyogenes and eliminate risk of acute rheumatic fever",
+                "instructions": "Amoxicillin 500mg twice daily or 250mg three times daily for a strict 10-day course.",
+                "precautions": "Must complete all 10 days even if throat pain vanishes within 48 hours."
+            },
+            {
+                "name": "Ibuprofen or Paracetamol",
+                "type": "OTC",
+                "purpose": "Relieves intense odynophagia (painful swallowing) and lowers fever",
+                "instructions": "Ibuprofen 400 mg with food every 6-8 hours as needed.",
+                "precautions": "Ensure hydration."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Warm Salt Water Gargling",
+                "description": "Gargle 1/2 teaspoon of salt in warm water every 3 hours.",
+                "benefit": "Physically draws out inflammatory fluid from swollen tonsillar tissues."
+            },
+            {
+                "name": "Sucking on Throat Lozenges / Ice Pops",
+                "description": "Suck on benzocaine/menthol lozenges or fruit ice pops.",
+                "benefit": "Temporarily numbs localized pharyngeal pain receptors, easing fluid swallowing."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Smooth lukewarm pureed soups and broths", "Soft scrambled eggs, mashed potatoes, and yogurt", "Cool smoothies (non-citrus) and applesauce", "Chilled milk or plant milk"],
+            "avoid": ["Crunchy, sharp foods: chips, crackers, raw vegetables", "Acidic citrus juices (orange, grapefruit) and tomato sauce", "Hot chili peppers and coarse spices"]
+        },
+        "lifestyle_tips": [
+            "Replace your toothbrush 24-48 hours after starting antibiotics to prevent re-infection.",
+            "Stay home from work or school until at least 24 hours after initiating antibiotic therapy and fever-free."
+        ],
+        "diagnostic_tests": ["Rapid Strep Antigen Test (RADT)", "Throat Culture (Gold standard)"],
+        "emergency_red_flags": [
+            "Difficulty opening the mouth wide (Trismus) or severe unilateral throat bulge (Peritonsillar Abscess / Quinsy)",
+            "Drooling saliva or inability to swallow own saliva",
+            "Stridor (high-pitched gasping sound on breathing in)",
+            "Stiff neck or widespread sandpapery red rash (Scarlet fever)"
+        ]
+    },
+    {
+        "id": "irritable-bowel-syndrome",
+        "name": "Irritable Bowel Syndrome (IBS)",
+        "category": "Gastrointestinal",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "Gastroenterologist",
+        "overview": "A common disorder characterized by abdominal pain, cramping, bloating, and changes in bowel habits without structural tissue damage.",
+        "detailed_explanation": "IBS is a disorder of gut-brain interaction (DGBI) characterized by visceral hypersensitivity, altered gut motility, low-grade mucosal immune activation, and microbiome dysbiosis. Classified into IBS-D (diarrhea-predominant), IBS-C (constipation-predominant), or IBS-M (mixed).",
+        "primary_symptoms": ["cramping_abdominal_pain_relieved_by_defecation", "chronic_bloating_and_gas", "alternating_diarrhea_and_constipation", "mucus_in_stool"],
+        "secondary_symptoms": ["urgency_to_have_bowel_movement", "feeling_incomplete_evacuation", "fatigue", "food_intolerances", "nausea"],
+        "causes_and_triggers": [
+            "Dysregulation between central nervous system and enteric gut nervous system",
+            "Post-infectious sequelae following severe food poisoning",
+            "High-FODMAP carbohydrate malabsorption and bacterial fermentation",
+            "Chronic psychological distress, anxiety, and autonomic arousal"
+        ],
+        "medicines": [
+            {
+                "name": "Mebeverine or Dicyclomine",
+                "type": "Prescription",
+                "purpose": "Antispasmodic relaxing intestinal smooth muscle cramping and spasms",
+                "instructions": "Take 20 minutes before meals as directed by doctor.",
+                "precautions": "May cause dry mouth or blurred vision."
+            },
+            {
+                "name": "Psyllium Husk (Isabgol)",
+                "type": "OTC",
+                "purpose": "Soluble prebiotic fiber that regulates stool consistency in both constipation and diarrhea",
+                "instructions": "1 tablespoon in a full glass of water, followed immediately by a second glass of water.",
+                "precautions": "Must drink plenty of fluid; avoid insoluble bran which worsens bloating."
+            },
+            {
+                "name": "Peppermint Oil Capsules (Enteric-coated)",
+                "type": "OTC",
+                "purpose": "Blocks calcium channels in smooth muscle, reducing painful colic and intestinal spasms",
+                "instructions": "1-2 capsules 30-60 minutes before meals on an empty stomach.",
+                "precautions": "Must be enteric coated to prevent heartburn."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Low-FODMAP Dietary Protocol",
+                "description": "Temporarily eliminate Fermentable Oligosaccharides, Disaccharides, Monosaccharides, and Polyols under dietetic guidance.",
+                "benefit": "Reduces gas production, visceral distension, and osmotic diarrhea in up to 75% of patients."
+            },
+            {
+                "name": "Diaphragmatic Breathing & Gut-Directed Relaxation",
+                "description": "Practice 10 minutes of deep abdominal breathing twice daily before meals.",
+                "benefit": "Activates parasympathetic vagal tone, quelling intestinal hyper-reactivity."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Soluble fiber (oats, cooked carrots, zucchini)", "Low-FODMAP fruits: bananas, blueberries, oranges", "Lean proteins: chicken breast, eggs, tofu", "Herbal peppermint or fennel teas"],
+            "avoid": ["High-FODMAP foods: onions, garlic, wheat, apples, cauliflower, beans", "Sorbitol, xylitol, and artificial sweeteners in sugar-free gums", "Carbonated beverages, beer, and high caffeine", "Greasy fried foods"]
+        },
+        "lifestyle_tips": [
+            "Eat at predictable, structured meal times without rushing.",
+            "Engage in regular moderate aerobic exercise like yoga, walking, or swimming.",
+            "Keep a food and symptom journal for 3 weeks to pinpoint trigger ingredients."
+        ],
+        "diagnostic_tests": ["Diagnosis by Rome IV Criteria", "Celiac Disease Serology (tTG-IgA)", "Fecal Calprotectin (to rule out Crohn's/Ulcerative Colitis)", "Colonoscopy (if warning signs present)"],
+        "emergency_red_flags": [
+            "Unexplained rapid weight loss",
+            "Rectal bleeding or black tarry stools",
+            "Nocturnal diarrhea awakening you from sleep (IBS rarely occurs during sleep)",
+            "Onset of new symptoms after age 50"
+        ]
+    },
+    {
+        "id": "vertigo-bppv",
+        "name": "Vertigo (Benign Paroxysmal Positional Vertigo - BPPV)",
+        "category": "Neurological",
+        "severity": "Moderate",
+        "urgency_level": "Consult Doctor within 48h",
+        "specialist": "ENT Specialist / Neurologist",
+        "overview": "A sensation of spinning or whirling where the room feels like it is rotating, triggered by specific changes in head position.",
+        "detailed_explanation": "BPPV occurs when microscopic calcium carbonate otoconia crystals (canaliths) dislodge from the utricle and migrate into one of the semicircular canals (most commonly the posterior canal) of the inner ear. When the head moves, these crystals cause abnormal endolymph fluid displacement, stimulating hair cells and generating an illusion of violent rotation and horizontal/torsional nystagmus.",
+        "primary_symptoms": ["spinning_sensation_vertigo", "dizziness_triggered_by_head_movement", "loss_of_balance_unsteadiness", "nausea_with_movement"],
+        "secondary_symptoms": ["vomiting", "abnormal_rhythmic_eye_movements_nystagmus", "dizziness", "anxiety"],
+        "causes_and_triggers": [
+            "Dislodged calcium otoconia crystals in the inner ear semicircular canals",
+            "Minor head trauma or concussion",
+            "Prolonged recumbent position (e.g., at the dentist or hair salon)",
+            "Inner ear viral infection (vestibular neuritis) or aging"
+        ],
+        "medicines": [
+            {
+                "name": "Betahistine",
+                "type": "Prescription",
+                "purpose": "Improves inner ear microcirculation and reduces endolymphatic pressure",
+                "instructions": "8-16 mg three times daily with food as prescribed.",
+                "precautions": "Caution in patients with bronchial asthma or peptic ulcer."
+            },
+            {
+                "name": "Meclizine or Dimenhydrinate",
+                "type": "OTC / Prescription",
+                "purpose": "Vestibular suppressant antihistamine to alleviate acute spinning nausea",
+                "instructions": "25 mg orally as needed.",
+                "precautions": "Causes significant drowsiness; do not drive. Should only be used for short durations as it delays central compensation."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "The Epley Canalith Repositioning Maneuver",
+                "description": "A precise 4-step sequence of head positions performed on a bed or by an audiologist/physician.",
+                "benefit": "Physically guides displaced calcium crystals by gravity out of the semicircular canal back into the utricle, curing up to 90% of BPPV cases."
+            },
+            {
+                "name": "Brandt-Daroff Home Exercises",
+                "description": "Sit upright, lie swiftly onto one side with head turned 45 degrees up, wait 30 seconds, sit up, repeat on opposite side.",
+                "benefit": "Aids central vestibular compensation and breaks up canalith aggregates."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Consistent hydration with pure water throughout the day", "Balanced meals preventing reactive hypoglycemia", "Ginger tea to curb nausea"],
+            "avoid": ["Excessive dietary sodium (causes fluid fluctuation in inner ear)", "High caffeine and energy drinks that constrict microvessels", "Alcohol, which alters inner ear fluid density and causes positional nystagmus"]
+        },
+        "lifestyle_tips": [
+            "Avoid sleeping completely flat; use two pillows to keep head elevated 30 degrees.",
+            "Turn your head slowly and avoid sudden backward head tilts (e.g. looking up at high shelves).",
+            "Sit on the edge of the bed for 1 minute before standing up in the morning."
+        ],
+        "diagnostic_tests": ["Dix-Hallpike Diagnostic Test", "Videonystagmography (VNG)", "Brain MRI (to rule out posterior circulation stroke or acoustic neuroma)"],
+        "emergency_red_flags": [
+            "Vertigo accompanied by double vision, slurred speech, facial drooping, or arm weakness (STROKE - ACT F.A.S.T)",
+            "Sudden profound hearing loss in one ear",
+            "Inability to stand or sit unsupported (Truncal ataxia)",
+            "New severe occipital headache"
+        ]
+    },
+    {
+        "id": "shingles",
+        "name": "Shingles (Herpes Zoster)",
+        "category": "Dermatological",
+        "severity": "Moderate to High",
+        "urgency_level": "Same-day Doctor Visit",
+        "specialist": "Dermatologist / Neurologist",
+        "overview": "A reactivation of the varicella-zoster virus causing a painful, blistering skin rash that typically follows a specific nerve pathway (dermatome).",
+        "detailed_explanation": "Following a childhood chickenpox infection, the varicella-zoster virus (VZV) remains dormant within dorsal root ganglia. When cellular immunity wanes with age or immunosuppression, the virus reactivates, travels along sensory axons to the skin, causing severe burning nerve pain (neuropathic pain) followed by a unilateral band of clustered fluid-filled vesicles.",
+        "primary_symptoms": ["unilateral_band_of_blistering_rash", "burning_tingling_nerve_pain", "extreme_skin_sensitivity_to_touch", "fluid_filled_blisters_along_dermatome"],
+        "secondary_symptoms": ["fever_and_chills", "headache", "fatigue", "intense_skin_itching"],
+        "causes_and_triggers": [
+            "Reactivation of dormant Varicella-Zoster Virus in sensory ganglia",
+            "Age over 50 years with declining cell-mediated immunity",
+            "Physical or severe emotional trauma/stress",
+            "Immunocompromising conditions or immunosuppressive therapy"
+        ],
+        "medicines": [
+            {
+                "name": "Valacyclovir or Acyclovir (Antivirals)",
+                "type": "Prescription",
+                "purpose": "Inhibits viral DNA polymerase, accelerating lesion crusting and dramatically reducing risk of Postherpetic Neuralgia (PHN)",
+                "instructions": "Valacyclovir 1000 mg 3 times daily for 7 days. Must be initiated within 72 hours of rash onset for optimal outcome.",
+                "precautions": "Drink plenty of water to prevent renal crystallization."
+            },
+            {
+                "name": "Gabapentin or Pregabalin",
+                "type": "Prescription",
+                "purpose": "Modulates alpha-2-delta calcium subunit to calm excruciating neuropathic burning nerve pain",
+                "instructions": "Titrated slowly by physician.",
+                "precautions": "Causes dizziness and somnolence; do not stop abruptly."
+            },
+            {
+                "name": "Calamine Lotion / Topical Lidocaine Patch",
+                "type": "OTC / Prescription",
+                "purpose": "Soothes raw dermatomal irritation and provides localized surface anesthesia",
+                "instructions": "Apply calamine lotion to weeping blisters; apply lidocaine patch strictly to intact healed skin.",
+                "precautions": "Never apply adhesive patches over open broken blisters."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Cool Saline Wet Compresses",
+                "description": "Soak a sterile cloth in cool saline solution and drape gently over blisters for 20 minutes, 3 times daily.",
+                "benefit": "Cools fiery burning pain and dries out weeping vesicles."
+            },
+            {
+                "name": "Colloidal Oatmeal Lukewarm Soaks",
+                "description": "Take a 15-minute lukewarm bath with dissolved oatmeal powder.",
+                "benefit": "Relieves itch and soothes inflamed cutaneous nerve endings."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["High-Lysine foods (poultry, fish, yogurt, cheese) which counterbalance arginine", "Vitamin B12 and Vitamin C rich foods for nerve myelin sheath support", "Hydrating leafy greens, orange fruits, and plenty of water"],
+            "avoid": ["High-Arginine foods (chocolate, peanuts, almonds, gelatin) which fuel herpes virus replication", "Refined white sugar and fried junk food"]
+        },
+        "lifestyle_tips": [
+            "Wear loose, smooth 100% silk or modal cotton clothing to prevent friction over sensitive dermatomes.",
+            "Keep the blistering rash cleanly covered with non-stick sterile dressings to prevent spreading varicella to unvaccinated contacts.",
+            "Get the Shingrix recombinant shingles vaccine (recommended for all adults aged 50+)."
+        ],
+        "diagnostic_tests": ["Clinical dermatomal evaluation", "VZV PCR swab of blister fluid", "Direct Fluorescent Antibody (DFA)"],
+        "emergency_red_flags": [
+            "Rash appearing on the tip or side of the nose, or near the eye (Herpes Zoster Ophthalmicus - PERMANENT BLINDNESS RISK - IMMEDIATE OPHTHALMOLOGY EMERGENCY)",
+            "Severe facial weakness, ear pain, and loss of taste (Ramsay Hunt Syndrome)",
+            "Rash spreading widely over the entire body (Disseminated Zoster)"
+        ]
+    },
+    {
+        "id": "conjunctivitis",
+        "name": "Conjunctivitis (Pink Eye)",
+        "category": "Eye/ENT",
+        "severity": "Mild",
+        "urgency_level": "Self-care",
+        "specialist": "Ophthalmologist / General Physician",
+        "overview": "Inflammation or infection of the transparent membrane (conjunctiva) that lines the eyelid and covers the white part of the eyeball.",
+        "detailed_explanation": "Conjunctivitis can be viral (Adenovirus, highly contagious), bacterial (Staphylococcus, Streptococcus), or allergic. It causes engorgement of the superficial conjunctival blood vessels, leading to prominent redness, foreign-body grittiness, and varying degrees of discharge.",
+        "primary_symptoms": ["redness_in_white_of_eye", "eye_itching_or_burning", "discharge_crusting_eyelids_shut", "gritty_foreign_body_sensation"],
+        "secondary_symptoms": ["watery_eyes", "swollen_puffy_eyelids", "sensitivity_to_light", "blurred_vision"],
+        "causes_and_triggers": [
+            "Viral infection (frequently accompanying a cold or adenovirus infection)",
+            "Bacterial contamination from unwashed fingers or expired makeup",
+            "Allergens (pollen, animal dander, dust mites)",
+            "Wearing contact lenses too long or improper contact lens disinfection"
+        ],
+        "medicines": [
+            {
+                "name": "Artificial Tears (Carboxymethylcellulose / Hyaluronic Acid)",
+                "type": "OTC",
+                "purpose": "Flushes allergens and infectious debris while providing soothing lubrication",
+                "instructions": "1-2 drops in each eye 4-6 times daily as needed (preservative-free formulations preferred).",
+                "precautions": "Do not touch dropper tip to eyeball or lashes to prevent contamination."
+            },
+            {
+                "name": "Moxifloxacin or Tobramycin Eye Drops",
+                "type": "Prescription",
+                "purpose": "Antibacterial eye drop indicated strictly for bacterial conjunctivitis (thick yellow/green pus)",
+                "instructions": "1 drop every 4-6 hours for 5-7 days as prescribed.",
+                "precautions": "Ineffective against viral pink eye; do not use indiscriminately."
+            },
+            {
+                "name": "Ketotifen or Olopatadine Eye Drops",
+                "type": "OTC / Prescription",
+                "purpose": "Antihistamine mast-cell stabilizer for intense itchy allergic pink eye",
+                "instructions": "1 drop twice daily.",
+                "precautions": "Remove contact lenses."
+            }
+        ],
+        "remedies": [
+            {
+                "name": "Cold / Warm Sterile Compresses",
+                "description": "Apply a clean washcloth soaked in cool boiled water over closed eyelids for 5-10 minutes.",
+                "benefit": "Reduces eyelid edema, relieves burning, and gently softens crusty exudates."
+            },
+            {
+                "name": "Eyelid Margin Cleansing",
+                "description": "Wipe closed eyelids gently from inner corner to outer corner using disposable sterile saline wipes.",
+                "benefit": "Removes crusted nocturnal secretions without reinfecting the ocular surface."
+            }
+        ],
+        "dietary_advice": {
+            "recommended": ["Hydrating foods rich in Vitamin A and lutein (carrots, spinach, sweet potatoes)", "Ample water intake", "Omega-3 rich foods to support healthy tear film"],
+            "avoid": ["Touching or rubbing eyes after handling spicy chili or irritating foods"]
+        },
+        "lifestyle_tips": [
+            "STOP wearing contact lenses immediately until the infection has completely resolved and replace old lenses.",
+            "Throw away all mascara, eyeliner, and eye creams used since infection onset.",
+            "Do not share towels, washcloths, or pillows with family members."
+        ],
+        "diagnostic_tests": ["Slit-lamp Biomicroscopy", "Fluorescein Staining (to rule out corneal abrasion/ulcer)"],
+        "emergency_red_flags": [
+            "Severe deep eye pain (indicative of acute angle-closure glaucoma or uveitis)",
+            "Significant decrease in vision that does not clear when blinking",
+            "Extreme sensitivity to light (Photophobia)",
+            "Pupil of the affected eye is irregular or fixed"
+        ]
+    }
+]
+
+# Generate symptoms dictionary dynamically & supplement with descriptions
+symptoms_dict = {
+    # Respiratory
+    "runny_nose": {"name": "Runny Nose (Rhinorrhea)", "category": "Respiratory", "description": "Excess drainage produced by nasal tissues ranging from clear fluid to thick mucus."},
+    "sneezing": {"name": "Frequent Sneezing", "category": "Respiratory", "description": "Involuntary convulsive expulsion of air from the lungs through the nose and mouth."},
+    "nasal_congestion": {"name": "Nasal Congestion (Stuffy Nose)", "category": "Respiratory", "description": "Blockage of nasal passages due to swollen blood vessels and mucous membranes."},
+    "sore_throat": {"name": "Sore Throat (Pharyngitis)", "category": "Respiratory", "description": "Pain, scratchiness, or irritation of the throat that often worsens when swallowing."},
+    "mild_cough": {"name": "Mild Cough", "category": "Respiratory", "description": "Occasional or mild coughing without significant phlegm."},
+    "dry_cough": {"name": "Dry / Hacking Cough", "category": "Respiratory", "description": "Persistent tickling cough that produces little to no phlegm or mucus."},
+    "productive_cough_with_phlegm": {"name": "Productive Cough with Phlegm", "category": "Respiratory", "description": "Cough bringing up thick, discolored, green, yellow, or rusty sputum from the lungs."},
+    "persistent_deep_cough": {"name": "Persistent Deep Chest Cough", "category": "Respiratory", "description": "Racking, deep cough originating from irritated bronchial airways lasting weeks."},
+    "clear_yellow_or_green_mucus": {"name": "Clear, Yellow, or Green Bronchial Mucus", "category": "Respiratory", "description": "Airway sputum coughed up from inflamed bronchial passages."},
+    "chest_soreness_from_coughing": {"name": "Chest Soreness from Coughing", "category": "Respiratory", "description": "Sore, bruised sensation across thoracic muscles caused by violent coughing spells."},
+    "shortness_of_breath": {"name": "Shortness of Breath (Dyspnea)", "category": "Respiratory", "description": "Difficulty drawing sufficient air, feeling winded, or rapid labored breathing."},
+    "mild_shortness_of_breath": {"name": "Mild Breathlessness on Exertion", "category": "Respiratory", "description": "Feeling winded during routine tasks like climbing stairs or walking."},
+    "wheezing": {"name": "Wheezing", "category": "Respiratory", "description": "A high-pitched musical whistling sound made while breathing, caused by narrowed bronchial airways."},
+    "wheezing_rattling_chest": {"name": "Wheezing & Rattling Chest Sound", "category": "Respiratory", "description": "Audible rhonchi and rattling vibratory sensations felt over the chest wall."},
+    "chest_tightness": {"name": "Chest Tightness", "category": "Respiratory", "description": "Feeling of pressure, constriction, or a heavy band wrapped tightly around the chest."},
+    "chest_pain_when_breathing": {"name": "Pleuritic Chest Pain (Pain on Inhaling)", "category": "Respiratory", "description": "Sharp stabbing pain when taking a deep breath or coughing."},
+    "coughing_at_night": {"name": "Coughing Worse at Night", "category": "Respiratory", "description": "Spasmodic cough episodes that disrupt sleep when lying down flat."},
+    "facial_pain_and_pressure": {"name": "Facial Pain and Sinus Pressure", "category": "Respiratory", "description": "Aching or fullness over cheekbones, forehead, bridge of nose, or behind eyes."},
+    "headache_worse_bending_forward": {"name": "Headache Worse When Bending Forward", "category": "Respiratory", "description": "Throbbing facial pressure that dramatically spikes when lowering head."},
+    "thick_yellow_or_green_nasal_discharge": {"name": "Thick Yellow/Green Nasal Discharge", "category": "Respiratory", "description": "Purulent thick nasal secretions signifying sinus mucosal inflammation."},
+    "loss_of_taste_or_smell": {"name": "Loss of Smell or Taste (Anosmia/Ageusia)", "category": "Respiratory", "description": "Sudden diminution or complete absence of ability to taste foods or perceive odors."},
+    "frequent_sneezing": {"name": "Paroxysmal Sneezing Fits", "category": "Respiratory", "description": "Rapid clusters of 5-10 consecutive sneezes triggered by airborne allergens."},
+    "clear_runny_nose": {"name": "Profuse Clear Watery Rhinorrhea", "category": "Respiratory", "description": "Thin, watery, drip-like liquid draining continuously from nostrils."},
+    "nasal_itching": {"name": "Nasal & Palatal Itching", "category": "Respiratory", "description": "Intense ticklish itching inside the nose, causing the 'allergic salute' rubbing habit."},
+    "postnasal_drip": {"name": "Postnasal Drip", "category": "Respiratory", "description": "Sensation of mucus constantly trickling down the back of the throat, prompting throat clearing."},
+    "reduced_sense_of_smell": {"name": "Reduced Olfaction (Hyposmia)", "category": "Respiratory", "description": "Muffled ability to appreciate fragrances and food aromas due to blocked clefts."},
+    "sudden_severe_sore_throat": {"name": "Sudden Severe Throat Pain (Odynophagia)", "category": "Respiratory", "description": "Rapid onset of excruciating throat pain making swallowing saliva agonizing."},
+    "painful_swallowing": {"name": "Severe Painful Swallowing", "category": "Respiratory", "description": "Sharp pain shooting into the ears whenever food, liquids, or saliva is swallowed."},
+    "white_patches_pus_on_tonsils": {"name": "White Patches / Exudate on Tonsils", "category": "Respiratory", "description": "Creamy yellowish-white follicular spots of purulent exudate coating enlarged tonsils."},
+    "swollen_tender_neck_lymph_nodes": {"name": "Swollen Tender Anterior Neck Nodes", "category": "Respiratory", "description": "Painful palpable pea-to-marble sized lymph glands beneath angle of jaw."},
+    "red_spots_on_roof_of_mouth_petechiae": {"name": "Palatal Petechiae (Red Spots on Roof of Mouth)", "category": "Respiratory", "description": "Pinpoint reddish-purple hemorrhages across soft palate."},
+
+    # Systemic & General
+    "high_fever": {"name": "High Fever (>101°F / 38.3°C)", "category": "General", "description": "Elevated core body temperature significantly above the standard normal range."},
+    "low_grade_fever": {"name": "Low-Grade Fever (99.5°F - 100.9°F)", "category": "General", "description": "Mildly elevated body temperature often accompanied by warmth or slight flush."},
+    "chills": {"name": "Chills & Shivering", "category": "General", "description": "Feeling uncomfortably cold with involuntary muscular shivering and goosebumps."},
+    "shaking_chills": {"name": "Violent Shaking Chills (Rigors)", "category": "General", "description": "Violent teeth-chattering shaking chills typical of bacteremia or deep infection."},
+    "shivering_chills": {"name": "Shivering Cold Paroxysms", "category": "General", "description": "Intense cold stage requiring heavy blankets before fever spike."},
+    "fatigue": {"name": "Fatigue & Malaise", "category": "General", "description": "Persistent weariness, generalized lack of vitality, and reduced physical stamina."},
+    "extreme_fatigue": {"name": "Extreme Exhaustion / Prostration", "category": "General", "description": "Overwhelming profound exhaustion preventing basic out-of-bed daily functions."},
+    "severe_body_aches": {"name": "Severe Body Aches (Myalgia)", "category": "General", "description": "Deep muscular aches throughout back, limbs, and neck."},
+    "unexplained_weight_loss": {"name": "Unexplained Weight Loss", "category": "General", "description": "Noticeable drop in body weight without dieting or increased physical exertion."},
+    "unexplained_weight_gain": {"name": "Unexplained Weight Gain", "category": "General", "description": "Gaining weight despite no increase in caloric intake or decrease in activity."},
+    "sweating": {"name": "Night Sweats / Excessive Perspiration", "category": "General", "description": "Profuse drenching sweating, especially soaking clothes or bedsheets."},
+    "excessive_sweating": {"name": "Drenching Diaphoresis", "category": "General", "description": "Continuous profuse cold or warm sweats requiring clothing changes."},
+    "profuse_sweating": {"name": "Crisis Sweating Stage", "category": "General", "description": "Massive evaporative sweating phase marking end of febrile paroxysm."},
+    "weakness": {"name": "Generalized Physical Weakness", "category": "General", "description": "Difficulty performing basic muscular movements due to systemic debility."},
+    "severe_weakness_and_fatigue": {"name": "Severe Systemic Weakness", "category": "General", "description": "Inability to sustain upright posture without trembling exhaustion."},
+    "chronic_fatigue": {"name": "Chronic Lethargy / Sluggishness", "category": "General", "description": "Constant low energy, sluggish cognitive function, and prolonged morning sleep inertia."},
+    "fever_and_chills": {"name": "Fever with Accompanying Chills", "category": "General", "description": "Fluctuating thermal dysregulation with cold spells followed by sweats."},
+    "fever": {"name": "Elevated Temperature / Pyrexia", "category": "General", "description": "Core body temperature elevated above 100.4°F (38.0°C)."},
+    "step_ladder_prolonged_fever": {"name": "Prolonged Step-Ladder Fever", "category": "General", "description": "Fever that climbs higher each day in step-like succession, persisting for weeks."},
+    "cyclical_high_fever": {"name": "Cyclical Fever Paroxysms (Every 48/72h)", "category": "General", "description": "Predictable rhythmic cycles of violent chills, soaring temperatures, and sweats."},
+    "cold_intolerance": {"name": "Intolerance to Cold", "category": "General", "description": "Feeling freezing cold and shivering when others are comfortable in room temperature."},
+    "excessive_thirst": {"name": "Excessive Thirst (Polydipsia)", "category": "General", "description": "Unquenchable dry mouth and constant craving for water despite high intake."},
+    "increased_hunger": {"name": "Increased Appetite (Polyphagia)", "category": "General", "description": "Constant gnawing hunger despite eating ample meals."},
+
+    # Neurological & Head
+    "headache": {"name": "General Headache", "category": "Neurological", "description": "Diffuse dull ache or pressure spanning the head or forehead."},
+    "mild_headache": {"name": "Mild Frontal Headache", "category": "Neurological", "description": "Mild, nagging tension-type ache across forehead or temples."},
+    "severe_headache": {"name": "Severe Splitting Headache", "category": "Neurological", "description": "Intense head pain causing difficulty focusing or keeping eyes open."},
+    "throbbing_headache": {"name": "Intense Throbbing Headache", "category": "Neurological", "description": "Severe pulsating, pounding unilateral or bilateral headache characteristic of migraine."},
+    "occipital_headache": {"name": "Occipital / Morning Headache", "category": "Neurological", "description": "Dull ache located at base of skull / back of neck upon waking, seen in hypertension."},
+    "sensitivity_to_light": {"name": "Sensitivity to Light (Photophobia)", "category": "Neurological", "description": "Discomfort or pain in the eyes triggered by normal daylight or room lighting."},
+    "sensitivity_to_sound": {"name": "Sensitivity to Sound (Phonophobia)", "category": "Neurological", "description": "Heightened intolerance to normal conversational sounds and ambient noise."},
+    "visual_aura": {"name": "Visual Aura (Flashes / Blind Spots)", "category": "Neurological", "description": "Transient zigzag shimmering lights, scintillating scotomas, or blind patches in vision."},
+    "dizziness": {"name": "Dizziness & Lightheadedness", "category": "Neurological", "description": "Feeling woozy, unsteady on your feet, or feeling close to fainting."},
+    "spinning_sensation_vertigo": {"name": "Spinning Sensation (True Vertigo)", "category": "Neurological", "description": "Hallucination of motion where surroundings violently rotate, tilt, or whirl."},
+    "dizziness_triggered_by_head_movement": {"name": "Dizziness Triggered by Head Turn", "category": "Neurological", "description": "Sudden vertigo triggered when rolling over in bed, tilting head up, or looking down."},
+    "loss_of_balance_unsteadiness": {"name": "Postural Unsteadiness & Dysequilibrium", "category": "Neurological", "description": "Tendency to veer to one side when walking, feeling pulled down or off-balance."},
+    "nausea_with_movement": {"name": "Movement-Induced Motion Sickness", "category": "Neurological", "description": "Sudden waves of nausea triggered by visual motion or head position changes."},
+    "abnormal_rhythmic_eye_movements_nystagmus": {"name": "Rhythmic Involuntary Eye Twitches (Nystagmus)", "category": "Neurological", "description": "Involuntary rapid jerking movements of eyeballs when looking sideways."},
+    "blurred_vision": {"name": "Blurred or Fluctuating Vision", "category": "Neurological", "description": "Inability to see fine details sharply, often caused by lens osmotic shifts or elevated BP."},
+    "tingling_in_feet": {"name": "Numbness / Tingling in Feet (Neuropathy)", "category": "Neurological", "description": "Pins-and-needles or burning numbness starting in toes and soles of feet."},
+    "burning_tingling_nerve_pain": {"name": "Burning Dermatomal Nerve Pain", "category": "Neurological", "description": "Electric, lancinating, or burning pain traced along a single thoracic or facial nerve pathway."},
+    "extreme_skin_sensitivity_to_touch": {"name": "Skin Allodynia (Pain from Gentle Touch)", "category": "Neurological", "description": "Agonizing pain triggered by light contact of a shirt, breeze, or bedsheet on skin."},
+
+    # Gastrointestinal
+    "nausea": {"name": "Nausea", "category": "Gastrointestinal", "description": "Uneasy sensation in stomach with an involuntary inclination to vomit."},
+    "vomiting": {"name": "Vomiting", "category": "Gastrointestinal", "description": "Forceful oral expulsion of gastric contents."},
+    "nausea_and_vomiting": {"name": "Nausea & Protracted Vomiting", "category": "Gastrointestinal", "description": "Persistent recurring nausea culminating in repeated emesis."},
+    "watery_diarrhea": {"name": "Watery Diarrhea", "category": "Gastrointestinal", "description": "Frequent loose, unformed, watery liquid bowel evacuations."},
+    "abdominal_cramps": {"name": "Abdominal Cramping", "category": "Gastrointestinal", "description": "Spasmodic painful clenching sensations across middle or lower stomach."},
+    "abdominal_pain": {"name": "Generalized Abdominal Aching", "category": "Gastrointestinal", "description": "Continuous dull or diffuse abdominal soreness."},
+    "cramping_abdominal_pain_relieved_by_defecation": {"name": "Cramping Pain Relieved by Defecation", "category": "Gastrointestinal", "description": "Lower belly cramps that noticeably subside immediately after passing stool or gas."},
+    "chronic_bloating_and_gas": {"name": "Chronic Bloating & Flatulence", "category": "Gastrointestinal", "description": "Distended belly feeling tight as a drum, excessive gas expulsion."},
+    "alternating_diarrhea_and_constipation": {"name": "Alternating Diarrhea & Constipation", "category": "Gastrointestinal", "description": "Bowel unpredictably swinging between watery stools and stubborn hard pellets."},
+    "mucus_in_stool": {"name": "Clear or White Mucus in Stool", "category": "Gastrointestinal", "description": "Jelly-like mucosal strands coating bowel movements without blood."},
+    "heartburn": {"name": "Heartburn (Pyrosis)", "category": "Gastrointestinal", "description": "Burning sensation rising from epigastrium up into mid-chest and retrosternal area."},
+    "acid_regurgitation": {"name": "Acid Regurgitation", "category": "Gastrointestinal", "description": "Sour, bitter, acidic gastric juice backing up into the mouth or throat."},
+    "chest_discomfort": {"name": "Retrosternal Chest Burning", "category": "Gastrointestinal", "description": "Uncomfortable warmth or tight burning behind the breastbone after eating."},
+    "difficulty_swallowing": {"name": "Difficulty Swallowing (Dysphagia)", "category": "Gastrointestinal", "description": "Sensation of food traveling slowly or pausing behind the sternum."},
+    "sour_taste_in_mouth": {"name": "Sour Acidic Taste in Mouth", "category": "Gastrointestinal", "description": "Metallic or vinegar-like sour reflux taste lingering on posterior tongue."},
+    "burning_stomach_pain": {"name": "Burning Stomach Pain (Epigastric)", "category": "Gastrointestinal", "description": "Gnawing burning epigastric discomfort located between the navel and breastbone."},
+    "pain_worse_on_empty_stomach": {"name": "Pain Worse on Empty Stomach", "category": "Gastrointestinal", "description": "Stomach burning that intensifies 2-3 hours after meals or at 2 AM, relieved temporarily by food."},
+    "loss_of_appetite": {"name": "Loss of Appetite (Anorexia)", "category": "Gastrointestinal", "description": "Marked disinterest in eating meals or feeling early satiety."},
+    "right_lower_quadrant_abdominal_pain": {"name": "Right Lower Abdomen Pain", "category": "Gastrointestinal", "description": "Sharp, intense localized pain in McBurney's point (right pelvic lower quadrant)."},
+    "pain_starting_near_navel_moving_to_lower_right": {"name": "Periumbilical Pain Migrating to Lower Right", "category": "Gastrointestinal", "description": "Classic appendicular pain pattern migrating over 12-24 hours."},
+    "rebound_tenderness": {"name": "Rebound Tenderness", "category": "Gastrointestinal", "description": "Pain that becomes sharply worse when abdominal pressure is suddenly released."},
+    "constipation": {"name": "Infrequent Hard Stools (Constipation)", "category": "Gastrointestinal", "description": "Fewer than 3 bowel movements per week with straining and hard dry stools."},
+
+    # Urinary & Renal
+    "burning_urination": {"name": "Burning Sensation During Urination (Dysuria)", "category": "Urinary", "description": "Sharp stinging or scalding pain along the urethra while passing urine."},
+    "painful_burning_urination": {"name": "Severe Painful Dysuria", "category": "Urinary", "description": "Intense scalding pain and urethral spasm upon voiding."},
+    "frequent_urination": {"name": "Frequent Urination (Frequency)", "category": "Urinary", "description": "Needing to urinate far more often than usual throughout day and night."},
+    "urgency_to_urinate": {"name": "Urgent Need to Urinate", "category": "Urinary", "description": "Sudden, compelling, uncontrollable urge to pass urine immediately."},
+    "frequent_need_to_urinate": {"name": "Persistent Urge with Little Urine Passed", "category": "Urinary", "description": "Running to the restroom frequently only to pass tiny trickles of urine."},
+    "cloudy_urine": {"name": "Cloudy or Malodorous Urine", "category": "Urinary", "description": "Turbid, murky, or pungent-smelling urine indicating presence of white cells or bacteria."},
+    "blood_in_urine": {"name": "Blood in Urine (Hematuria)", "category": "Urinary", "description": "Pink, red, or smoky brownish discoloration of urine."},
+    "severe_sharp_flank_pain": {"name": "Severe Sharp Flank Pain (Renal Colic)", "category": "Urinary", "description": "Excruciating intermittent spasms in the side and back beneath the ribs."},
+    "pain_radiating_to_groin": {"name": "Pain Radiating Down to Groin / Scrotum / Labia", "category": "Urinary", "description": "Referred ureteral pain traveling along the path of urinary obstruction."},
+
+    # Dermatological / Skin
+    "skin_rash": {"name": "Skin Rash / Erythema", "category": "Dermatological", "description": "Widespread redness, maculopapular bumps, or spotted eruptions across skin."},
+    "intense_skin_itching": {"name": "Intense Skin Itching (Pruritus)", "category": "Dermatological", "description": "Severe irritating sensation prompting an overwhelming compulsion to scratch."},
+    "red_to_brownish_skin_patches": {"name": "Red to Brownish Scaly Patches", "category": "Dermatological", "description": "Inflamed, dry, lichenified plaques on flexural creases, hands, or cheeks."},
+    "dry_scaly_skin": {"name": "Dry, Flaky, Cracking Skin", "category": "Dermatological", "description": "Loss of cutaneous moisture causing rough peeling texture and fissure development."},
+    "skin_cracking": {"name": "Painful Fissures & Skin Cracks", "category": "Dermatological", "description": "Deep cuts or fissures opening in thickened dry skin creases."},
+    "dry_skin_and_hair_loss": {"name": "Coarse Dry Skin & Brittle Hair", "category": "Dermatological", "description": "Thinning, coarse brittle hair and rough, pale scaly skin."},
+    "unilateral_band_of_blistering_rash": {"name": "Unilateral Band of Blistering Rash", "category": "Dermatological", "description": "A distinct stripe or cluster of red bumps and blisters restricted strictly to one side of torso or face."},
+    "fluid_filled_blisters_along_dermatome": {"name": "Fluid-Filled Vesicular Blisters", "category": "Dermatological", "description": "Clusters of clear fluid-filled blisters that later turn yellowish and crust over."},
+
+    # Eyes & ENT
+    "watery_eyes": {"name": "Watery Eyes (Epiphora)", "category": "Eye/ENT", "description": "Excess tear overflow running down the face from conjunctival irritation."},
+    "itchy_watery_eyes": {"name": "Intense Itching & Redness of Eyes", "category": "Eye/ENT", "description": "Irritated, itchy conjunctiva prompting frequent eye rubbing."},
+    "pain_behind_eyes": {"name": "Severe Retro-Orbital Pain (Pain Behind Eyes)", "category": "Eye/ENT", "description": "Deep aching pain behind eyeball globes exacerbated by ocular movement."},
+    "redness_in_white_of_eye": {"name": "Redness in White of Eye (Pink Eye)", "category": "Eye/ENT", "description": "Bright pink or fiery red dilation of conjunctival capillaries."},
+    "eye_itching_or_burning": {"name": "Ocular Itching, Stinging, or Burning", "category": "Eye/ENT", "description": "Irritating hot burning or intense scratching sensation on conjunctival surface."},
+    "discharge_crusting_eyelids_shut": {"name": "Eyelid Crusting & Pus Discharge", "category": "Eye/ENT", "description": "Sticky mucus or yellow crust cementing eyelids glued shut upon waking."},
+    "gritty_foreign_body_sensation": {"name": "Gritty Sensation (Sand in Eye)", "category": "Eye/ENT", "description": "Constant feeling as if coarse grains of sand or eyelash is trapped under eyelid."},
+
+    # Musculoskeletal & Joints
+    "joint_pain_with_movement": {"name": "Joint Pain with Movement", "category": "Musculoskeletal", "description": "Aching pain in knees, hips, or fingers aggravated by walking or weight-bearing."},
+    "joint_stiffness": {"name": "Joint Stiffness (Morning <30 mins)", "category": "Musculoskeletal", "description": "Difficulty flexing joints upon waking that eases with gentle warm-up movement."},
+    "joint_swelling": {"name": "Joint Swelling and Warmth", "category": "Musculoskeletal", "description": "Fluid buildup and puffy distension around joint capsule."},
+    "crepitus_grating_sound": {"name": "Joint Crepitus (Crackling / Crunching)", "category": "Musculoskeletal", "description": "Crunching, grinding, or popping sound and sensation felt when flexing knee or hip."},
+    "sudden_excruciating_big_toe_pain": {"name": "Excruciating Big Toe Joint Pain (Podagra)", "category": "Musculoskeletal", "description": "Sudden onset violent pain, erythema, and hypersensitivity in the base joint of the big toe."},
+    "joint_redness_and_heat": {"name": "Joint Redness and Heat", "category": "Musculoskeletal", "description": "Inflamed skin over joint glowing hot, fiery red, and tense."},
+    "pain_peaks_at_night": {"name": "Joint Pain Waking from Deep Sleep", "category": "Musculoskeletal", "description": "Sudden nighttime inflammatory peak causing waking in agonizing pain."},
+    "swollen_inflamed_joint": {"name": "Puffy Hot Tense Joint Distension", "category": "Musculoskeletal", "description": "Rapid ballooning of joint with tense fluid collection."},
+    "severe_joint_and_bone_pain": {"name": "Severe Joint and Bone Pain ('Breakbone')", "category": "Musculoskeletal", "description": "Excruciating deep-seated pain in bones, knees, and lumbar spine."}
+}
+
+os.makedirs("data", exist_ok=True)
+
+with open("data/diseases.json", "w", encoding="utf-8") as f:
+    json.dump(diseases, f, indent=2, ensure_ascii=False)
+
+with open("data/symptoms.json", "w", encoding="utf-8") as f:
+    json.dump(symptoms_dict, f, indent=2, ensure_ascii=False)
+
+print(f"Generated data/diseases.json with {len(diseases)} diseases.")
+print(f"Generated data/symptoms.json with {len(symptoms_dict)} symptoms.")
